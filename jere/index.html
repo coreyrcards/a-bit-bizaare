@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>JERE.COM — Pro BMX Video Feed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bangers&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#000;--card:rgba(6,18,28,.78);--green:#00ff66;--green-soft:#7cff9b;--green-dim:rgba(0,255,102,.16);--text:#e5f3ff;--muted:#70849e;--border:rgba(0,255,102,.18);--border-strong:rgba(0,255,102,.42);--gold:#f0c040;--pill:999px;--shadow:0 0 30px rgba(0,255,102,.18),0 0 90px rgba(0,255,102,.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;min-height:100%}body{background:#000;color:var(--text);font-family:"JetBrains Mono",Consolas,monospace;overflow-x:hidden}button,textarea,input{font:inherit}button{cursor:pointer}
+#matrix{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.34}#matrix span{position:absolute;top:-40px;color:var(--green);font-size:18px;text-shadow:0 0 8px var(--green),0 0 22px var(--green);animation:fall linear forwards}@keyframes fall{to{transform:translateY(110vh)}}
+#scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,102,.018) 2px,rgba(0,255,102,.018) 4px)}.shell{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column}.hero{min-height:92vh;display:grid;place-items:center;padding:1.2rem}.hero-inner{width:min(1080px,94vw);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:1.2rem;align-items:center}.eyebrow{color:var(--muted);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:.7rem}.title{color:var(--green-soft);font-size:clamp(3rem,10vw,8rem);letter-spacing:.16em;text-transform:uppercase;line-height:.9;text-shadow:0 0 24px rgba(0,255,102,.7),0 0 90px rgba(0,255,102,.25)}.domain{color:var(--gold);font-size:clamp(1rem,3vw,2rem);letter-spacing:.28em;text-transform:uppercase;margin-top:.4rem;text-shadow:0 0 18px rgba(240,192,64,.45)}.subtitle{color:var(--muted);font-size:.78rem;letter-spacing:.1em;line-height:1.8;max-width:700px;margin-top:1rem}.hero-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}.btn,.chip{border:1px solid var(--border);border-radius:var(--pill);background:rgba(0,0,0,.62);color:var(--text);padding:.6rem 1rem;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;transition:.2s ease;backdrop-filter:blur(10px)}.btn:hover,.chip:hover{color:var(--green-soft);border-color:var(--green);transform:translateY(-2px);box-shadow:0 0 18px rgba(0,255,102,.28)}.btn-primary{color:#001b0b;background:linear-gradient(135deg,#00cc55,#00ff66);border-color:transparent;font-weight:700}.btn-gold{color:#1a1000;background:linear-gradient(135deg,#d4a820,#f0c040);border-color:transparent;font-weight:700}.crt-card{border:1px solid var(--border-strong);border-radius:28px;background:radial-gradient(circle at 50% 10%,rgba(0,255,102,.14),transparent 45%),rgba(0,0,0,.66);box-shadow:var(--shadow);padding:1rem;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}.crt-card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(0,255,102,.08),transparent);transform:translateX(-120%);animation:glint 5s ease-in-out infinite}@keyframes glint{55%,100%{transform:translateX(120%)}}.screen-title{position:relative;z-index:2;color:var(--green);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}.screen{position:relative;z-index:2;border:1px solid var(--border);border-radius:22px;background:#000;min-height:260px;display:grid;place-items:center;overflow:hidden}.screen video,.screen img{width:100%;height:100%;max-height:310px;object-fit:cover;display:block}.screen-fallback{text-align:center;line-height:1.8;padding:1rem}.bmx-mark{font-size:3rem;color:var(--green);text-shadow:0 0 24px var(--green);margin-bottom:.4rem}.terminal-lines{position:relative;z-index:2;color:var(--muted);font-size:.64rem;line-height:1.7}.green{color:var(--green-soft)}.stats-strip{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}.stat{min-width:112px;border:1px solid var(--border);border-radius:16px;background:rgba(0,0,0,.42);padding:.75rem}.stat strong{display:block;color:var(--green);font-size:1.25rem}.stat span{color:var(--muted);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase}.main{display:grid;grid-template-columns:310px minmax(0,1fr);gap:1rem;width:min(1220px,96vw);margin:0 auto 2rem;padding:1rem}.panel,.feed-shell,.upload-panel{border:1px solid var(--border);border-radius:24px;background:var(--card);box-shadow:var(--shadow)}.panel{padding:1rem;align-self:start;position:sticky;top:1rem}.panel-title{color:var(--green-soft);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem}.panel-copy{color:var(--muted);font-size:.72rem;line-height:1.65;margin-bottom:.9rem}.metric{display:grid;gap:.28rem;margin:.65rem 0}.metric-top{display:flex;justify-content:space-between;color:var(--muted);font-size:.64rem}.metric-top strong{color:var(--green-soft)}.bar{height:4px;background:rgba(0,255,102,.08);border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-soft));transform-origin:left;transform:scaleX(.12);transition:transform .35s ease}.tag-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}.tag{border:1px solid var(--border);border-radius:var(--pill);padding:.25rem .55rem;color:var(--green);background:rgba(0,0,0,.35);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase}.feed-shell{overflow:hidden}.feed-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border-bottom:1px solid var(--border)}.feed-title{color:var(--green-soft);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase}.feed-sub{color:var(--muted);font-size:.62rem;margin-top:.2rem}.upload-panel{margin:1rem;padding:1rem}textarea{width:100%;min-height:78px;resize:vertical;border:1px solid var(--border);border-radius:16px;background:rgba(6,18,28,.8);color:var(--text);padding:.75rem;outline:none}textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim)}.form-row{margin-top:.65rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}.hidden-input{display:none}.file-preview{margin-top:.5rem;color:var(--muted);font-size:.64rem}.feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;padding:1rem}.video-card{border:1px solid var(--border);border-radius:22px;overflow:hidden;background:rgba(0,0,0,.48);transition:.2s ease}.video-card:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 0 24px rgba(0,255,102,.2)}.video-media{aspect-ratio:9/14;background:radial-gradient(circle at center,rgba(0,255,102,.13),transparent 60%),#020617;display:grid;place-items:center;overflow:hidden}.video-media video,.video-media img{width:100%;height:100%;object-fit:cover;display:block}.video-fallback{color:var(--green);font-size:2.4rem;text-shadow:0 0 20px var(--green)}.video-meta{padding:.85rem}.video-title{color:var(--text);font-size:.78rem;line-height:1.45;margin-bottom:.55rem;white-space:pre-wrap}.video-byline{display:flex;justify-content:space-between;gap:.5rem;color:var(--muted);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase}.video-actions{display:flex;gap:.45rem;margin-top:.75rem;flex-wrap:wrap}.pill-action{border:1px solid var(--border);border-radius:var(--pill);background:rgba(0,0,0,.35);color:var(--green-soft);padding:.3rem .55rem;font-size:.58rem;text-transform:uppercase}.footer{position:relative;z-index:5;width:min(1220px,96vw);margin:0 auto 2rem;padding:1rem;color:var(--muted);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}@media(max-width:920px){.hero-inner,.main{grid-template-columns:1fr}.panel{position:relative;top:auto}.crt-card{min-height:360px}}@media(max-width:620px){.title{font-size:clamp(2.3rem,17vw,4.5rem)}.domain{letter-spacing:.16em}.hero{min-height:82vh}.feed{grid-template-columns:1fr}.feed-head{align-items:flex-start;flex-direction:column}.stats-strip{gap:.5rem}.stat{min-width:calc(50% - .5rem)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* === JERE.COM mobile beer-can / iMessage patch === */
+.mobile-money-screen{display:none}
+.bangers-domain{
+  font-family:"Bangers","JetBrains Mono",Consolas,monospace;
+  letter-spacing:.12em;
+}
+@media(max-width:620px){
+  body{
+    background:#000;
+    color:#fff;
+    font-family:Consolas,"Courier New",monospace;
+  }
+  #matrix span{
+    color:#00ff66;
+    opacity:.9;
+    text-shadow:0 0 6px #00ff66,0 0 18px #00ff66;
+  }
+  .shell::before{
+    content:"$$$$$$$$ $$$$$$$$ ERROR $$$$$$$$ $$$$$$$$ $$$$$$$$ ERROR $$$$$$$$ $$$$$$$$ ERROR $$$$$$$$ $$$$$$$$ $$$$$$$$ ERROR $$$$$$$$ $$$$$$$$ ERROR $$$$$$$$ $$$$$$$$ $$$$$$$$ ERROR $$$$$$$$";
+    position:fixed;
+    inset:-25vh -12vw;
+    z-index:2;
+    color:#00ff66;
+    opacity:.24;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:18px;
+    line-height:1.75;
+    letter-spacing:.2em;
+    word-spacing:.55em;
+    overflow:hidden;
+    pointer-events:none;
+    animation:moneyDrift 11s linear infinite;
+  }
+  .shell::after{
+    content:"$ ERROR $ $ $ ERROR $ $ $ $ ERROR $ $ ERROR $ $ $ ERROR $ $ $";
+    position:fixed;
+    inset:0;
+    z-index:3;
+    color:#00ff66;
+    opacity:.13;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:26px;
+    line-height:2.2;
+    letter-spacing:.28em;
+    pointer-events:none;
+    transform:rotate(-8deg) scale(1.15);
+  }
+  @keyframes moneyDrift{
+    from{transform:translateY(-5vh)}
+    to{transform:translateY(5vh)}
+  }
+  .hero{
+    min-height:100vh;
+    padding:.75rem;
+  }
+  .hero-inner{
+    display:block;
+    width:100%;
+  }
+  .hero-inner > div:first-child,
+  .crt-card,
+  .main,
+  .footer{
+    display:none!important;
+  }
+  .mobile-money-screen{
+    display:grid;
+    min-height:96vh;
+    place-items:center;
+    position:relative;
+    z-index:10;
+    padding:1rem;
+  }
+  .iphone-message-card{
+    width:min(370px,94vw);
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:28px;
+    background:rgba(0,0,0,.86);
+    box-shadow:0 0 28px rgba(0,255,102,.25), inset 0 0 18px rgba(255,255,255,.06);
+    padding:1rem;
+    overflow:hidden;
+  }
+  .iphone-header{
+    color:#fff;
+    font-family:"Bangers",Consolas,"Courier New",monospace;
+    font-size:2.1rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:.55rem;
+    text-align:center;
+    text-shadow:0 0 6px #fff,0 0 18px rgba(0,255,102,.55);
+  }
+  .iphone-subhead{
+    color:#00ff66;
+    font-size:.62rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-align:center;
+    margin-bottom:.75rem;
+  }
+  .beer-can{
+    color:#fff;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:10px;
+    line-height:1.04;
+    white-space:pre;
+    text-align:center;
+    text-shadow:0 0 4px #fff,0 0 14px rgba(255,255,255,.45);
+  }
+  .mobile-code{
+    margin-top:.75rem;
+    color:#00ff66;
+    font-size:.63rem;
+    line-height:1.6;
+    text-align:left;
+  }
+}
+
+</style>
+</head>
+<body>
+<a href="../" class="abz-home" style="position:fixed;top:14px;left:14px;z-index:2000000;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#00ff66;background:rgba(0,0,0,.75);border:1px solid rgba(0,255,102,.45);border-radius:999px;padding:7px 13px;text-decoration:none;backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)">&#8592; a bit bizaare</a>
+<div id="matrix"></div><div id="scanlines"></div>
+<div class="shell">
+  <section class="hero" id="top"><div class="hero-inner"><div><div class="eyebrow">pro bmx video network · raw clips · field archive</div><h1 class="title">JERE</h1><div class="domain bangers-domain">JERE.COM</div><p class="subtitle">A blackwater BMX feed for street clips, contest footage, crash edits, night sessions, behind-the-scenes fragments, and whatever else deserves to be archived. Built for Jere, open to the rest of the world.</p><div class="hero-actions"><button class="btn btn-primary" id="uploadHeroBtn">Upload Clip</button><button class="btn btn-gold" id="watchHeroBtn">Watch Feed</button></div><div class="stats-strip"><div class="stat"><strong id="clipCount">0</strong><span>Clips</span></div><div class="stat"><strong id="viewPulse">432</strong><span>Pulse</span></div><div class="stat"><strong id="streetScore">0.00</strong><span>Street Signal</span></div><div class="stat"><strong>∞</strong><span>Archive</span></div></div></div><aside class="crt-card"><div class="screen-title">featured transmission</div><div class="screen" id="featuredScreen"><div class="screen-fallback"><div class="bmx-mark">⚡</div><div class="green">JERE.COM VIDEO FEED</div><div style="color:var(--muted);font-size:.7rem;margin-top:.5rem;">upload the first BMX clip to activate the screen</div></div></div><div class="terminal-lines" id="terminalLines"><div>$ system = "online"</div><div>$ mode = "pro_bmx_clips"</div><div>$ upload_status = "<span class="green">ready</span>"</div><div>$ content_policy = "raw, legal, creative, rider-owned"</div></div></aside></div></section>
+  <section class="mobile-money-screen" aria-label="JERE.COM mobile transmission">
+    <div class="iphone-message-card">
+      <div class="iphone-header">JERE.COM</div>
+      <div class="iphone-subhead">pro bmx video feed · transmission received</div>
+      <pre class="beer-can">
+        _______
+      .=========.
+      |  -...-  |
+      | '-...-' |
+     _|_________|_
+    /             \
+   |   JERE.COM    |
+   |   ---------   |
+   |    PRO BMX    |
+   |   ICE  COLD   |
+   |     CLIPS     |
+   |   ---------   |
+   |   432 PULSE   |
+    \   _______   /
+     '-'       '-'</pre>
+      <div class="mobile-code">
+        <div>$ device = "mobile"</div>
+        <div>$ mode = "pro_bmx_clips"</div>
+        <div>$ upload_status = "open the desktop site"</div>
+        <div>$ msg = "built for jere, open to the rest of the world"</div>
+      </div>
+    </div>
+  </section>
+  <main class="main" id="feedSection"><aside class="panel"><div class="panel-title">Jere Signal Engine</div><p class="panel-copy">Keep it raw, keep it rider-owned, keep it moving. Upload BMX clips, describe the spot, tag the vibe, and build the archive one session at a time.</p><div class="metric"><div class="metric-top"><span>clip voltage</span><strong id="clipVoltageLabel">0.00</strong></div><div class="bar"><span id="clipVoltageBar"></span></div></div><div class="metric"><div class="metric-top"><span>street resonance</span><strong id="streetLabel">0.00</strong></div><div class="bar"><span id="streetBar"></span></div></div><div class="metric"><div class="metric-top"><span>archive depth</span><strong id="archiveDepthLabel">0</strong></div><div class="bar"><span id="archiveDepthBar"></span></div></div><div class="tag-row"><span class="tag">street</span><span class="tag">park</span><span class="tag">dirt</span><span class="tag">night</span><span class="tag">raw</span><span class="tag">contest</span></div></aside><section class="feed-shell"><div class="feed-head"><div><div class="feed-title">BMX Clip Feed</div><div class="feed-sub">JERE.COM and the rest of the world · localStorage prototype · video-first archive</div></div><button class="btn" id="clearFeedBtn">Clear Local Feed</button></div><div class="upload-panel" id="uploadPanel"><textarea id="captionInput" placeholder="Describe the clip: rider, trick, spot, city, contest, crash, night session, or whatever happened..."></textarea><div class="form-row"><div><label class="chip">choose video / image<input class="hidden-input" id="fileInput" type="file" accept="video/*,image/*" /></label><span class="chip" id="tagStreet">tag: street</span><span class="chip" id="tagRaw">tag: raw</span></div><button class="btn btn-primary" id="postBtn">Post Clip</button></div><div class="file-preview" id="filePreview"></div></div><div class="feed" id="feed"></div></section></main><footer class="footer">JERE.COM · pro bmx clips · matrix archive · no unnecessary buttons</footer>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{const $=id=>document.getElementById(id);const STORE_KEY="jere_bmx_video_feed_v1",RAIN_MAX=150;const matrix=$("matrix"),feed=$("feed"),fileInput=$("fileInput"),filePreview=$("filePreview"),captionInput=$("captionInput"),postBtn=$("postBtn"),clearFeedBtn=$("clearFeedBtn"),featuredScreen=$("featuredScreen");let clips=loadClips(),selectedFile=null,currentTags=["street","raw"],pulse=432;const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));function loadClips(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||[]}catch{return[]}}function saveClips(){try{localStorage.setItem(STORE_KEY,JSON.stringify(clips))}catch{clips.shift();localStorage.setItem(STORE_KEY,JSON.stringify(clips));alert("Storage was full, so the oldest local clip was removed.")}}function spawnRain(){if(matrix.children.length>=RAIN_MAX)return;const s=document.createElement("span"),glyphs="BMXJERE$@#%∞≈~░▒▓01";s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)];s.style.left=`${Math.random()*100}vw`;s.style.fontSize=`${12+Math.random()*22}px`;s.style.animationDuration=`${2.5+Math.random()*8}s`;s.style.opacity=`${.3+Math.random()*.7}`;matrix.appendChild(s);s.addEventListener("animationend",()=>s.remove(),{once:true})}setInterval(spawnRain,24);function fileToData(file){return new Promise(resolve=>{const meta={name:file.name,type:file.type||"unknown",size:file.size,dataURL:""};if(file.size>8000000){resolve(meta);return}const reader=new FileReader();reader.onload=()=>{meta.dataURL=String(reader.result);resolve(meta)};reader.onerror=()=>resolve(meta);reader.readAsDataURL(file)})}async function addClip(){const text=captionInput.value.trim();if(!text&&!selectedFile)return;postBtn.textContent="...";postBtn.disabled=true;const file=selectedFile?await fileToData(selectedFile):null;clips.push({id:crypto.randomUUID(),caption:text||"untitled BMX clip",tags:[...currentTags],file,author:"jere.com",createdAt:Date.now()});saveClips();selectedFile=null;fileInput.value="";filePreview.textContent="";captionInput.value="";postBtn.textContent="Post Clip";postBtn.disabled=false;pulse+=Math.floor(Math.random()*9)+1;render()}function render(){renderStats();renderFeed();renderFeatured()}function renderStats(){const count=clips.length,voltage=clamp(count/24,.03,1),street=clamp(count*.08+Math.random()*.08,0,1),depth=Math.min(999,count*37);$("clipCount").textContent=count;$("viewPulse").textContent=pulse;$("streetScore").textContent=street.toFixed(2);$("clipVoltageLabel").textContent=voltage.toFixed(2);$("streetLabel").textContent=street.toFixed(2);$("archiveDepthLabel").textContent=depth;$("clipVoltageBar").style.transform=`scaleX(${voltage})`;$("streetBar").style.transform=`scaleX(${clamp(street,.03,1)})`;$("archiveDepthBar").style.transform=`scaleX(${clamp(depth/999,.03,1)})`}function renderFeatured(){const latest=clips[clips.length-1];if(!latest||!latest.file||!latest.file.dataURL){featuredScreen.innerHTML='<div class="screen-fallback"><div class="bmx-mark">⚡</div><div class="green">JERE.COM VIDEO FEED</div><div style="color:var(--muted);font-size:.7rem;margin-top:.5rem;">upload the first BMX clip to activate the screen</div></div>';return}featuredScreen.innerHTML="";if(latest.file.type.startsWith("video/")){const video=document.createElement("video");video.src=latest.file.dataURL;video.controls=true;video.loop=true;video.muted=true;featuredScreen.appendChild(video)}else if(latest.file.type.startsWith("image/")){const img=document.createElement("img");img.src=latest.file.dataURL;img.alt=latest.file.name;featuredScreen.appendChild(img)}}function renderFeed(){feed.innerHTML="";if(!clips.length){[{caption:"WELCOME TO JERE.COM // Upload a street clip, park line, crash edit, night session, or contest fragment.",tags:["system","bmx","archive"],author:"jere.com"},{caption:"Prototype note: uploaded clips are saved locally in your browser. For a public site, connect this feed to real storage later.",tags:["dev","localStorage","prototype"],author:"jere.com"},{caption:"First mission: build a clean BMX archive. Raw clips, rider-owned media, real context.",tags:["mission","field","clips"],author:"jere.com"}].forEach(post=>feed.appendChild(buildCard(post,true)));return}clips.slice().reverse().forEach(post=>feed.appendChild(buildCard(post,false)))}function buildCard(post,seed){const card=document.createElement("article");card.className="video-card";const media=document.createElement("div");media.className="video-media";const file=post.file;if(file&&file.dataURL&&file.type.startsWith("video/")){const video=document.createElement("video");video.src=file.dataURL;video.controls=true;video.loop=true;media.appendChild(video)}else if(file&&file.dataURL&&file.type.startsWith("image/")){const img=document.createElement("img");img.src=file.dataURL;img.alt=file.name;media.appendChild(img)}else{const fallback=document.createElement("div");fallback.className="video-fallback";fallback.textContent=seed?"⚡":"BMX";media.appendChild(fallback)}const meta=document.createElement("div");meta.className="video-meta";const title=document.createElement("div");title.className="video-title";title.textContent=post.caption||"untitled BMX clip";const byline=document.createElement("div");byline.className="video-byline";const date=post.createdAt?new Date(post.createdAt).toLocaleDateString():"system";byline.innerHTML=`<span>@${post.author||"jere.com"}</span><span>${date}</span>`;const actions=document.createElement("div");actions.className="video-actions";(post.tags||["bmx"]).slice(0,4).forEach(tag=>{const pill=document.createElement("span");pill.className="pill-action";pill.textContent=tag;actions.appendChild(pill)});meta.appendChild(title);meta.appendChild(byline);meta.appendChild(actions);card.appendChild(media);card.appendChild(meta);return card}fileInput.addEventListener("change",()=>{selectedFile=fileInput.files[0]||null;filePreview.textContent=selectedFile?`${selectedFile.name} // ${(selectedFile.size/1024/1024).toFixed(2)} MB`:""});postBtn.addEventListener("click",addClip);captionInput.addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))addClip()});clearFeedBtn.addEventListener("click",()=>{if(!confirm("Clear the local Jere.com feed on this browser?"))return;clips=[];saveClips();render()});$("uploadHeroBtn").addEventListener("click",()=>{document.getElementById("feedSection").scrollIntoView({behavior:"smooth"});setTimeout(()=>fileInput.click(),350)});$("watchHeroBtn").addEventListener("click",()=>document.getElementById("feedSection").scrollIntoView({behavior:"smooth"}));$("tagStreet").addEventListener("click",()=>{currentTags=currentTags.includes("street")?currentTags.filter(t=>t!=="street"):[...currentTags,"street"];$("tagStreet").style.borderColor=currentTags.includes("street")?"var(--green)":"var(--border)"});$("tagRaw").addEventListener("click",()=>{currentTags=currentTags.includes("raw")?currentTags.filter(t=>t!=="raw"):[...currentTags,"raw"];$("tagRaw").style.borderColor=currentTags.includes("raw")?"var(--green)":"var(--border)"});setInterval(()=>{pulse+=Math.random()>.7?1:0;$("viewPulse").textContent=pulse},2200);render()});
+</script>
+</body>
+</html>

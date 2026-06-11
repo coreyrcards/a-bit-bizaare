@@ -24,6 +24,7 @@ site/
 ├── buddha/                 # .buddha — final archive / whale AI    (from: .buddha)
 ├── archive/                # the Samue jacket / streetwear lookbook
 ├── shop/                   # Nick Knacks — neon shop               (from: nickknacks)
+├── jere/                   # JERE.COM — pro BMX video feed         (from: jere.com)
 ├── arcade/
 │   ├── index.html          # arcade hub
 │   ├── matrixman/          # Code Storm — falling-code platformer  (from: matrixman)
@@ -36,7 +37,7 @@ site/
 ## Source repos merged
 
 `manhattan`, `.buddha`, `PROJECTMANHATTAN`, `fenix`, `Fenix_the_producer`,
-`nickknacks`, `sudoku`, `matrixman`, `Q-w-rd`, `qaward`, `A-Bit-Bizarre`.
+`nickknacks`, `sudoku`, `matrixman`, `Q-w-rd`, `qaward`, `A-Bit-Bizarre`, `jere.com`.
 
 ## Notes
 
