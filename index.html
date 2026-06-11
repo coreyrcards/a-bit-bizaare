@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A BIT BIZAARE — fenix_the_producer × Q@W@RD</title>
+<meta name="description" content="The complete universe of A BIT BIZAARE — music, identity marketplace, fashion engine, archive, shop, and arcade. By fenix_the_producer." />
+<meta property="og:title" content="A BIT BIZAARE — where design becomes identity" />
+<meta property="og:description" content="Music, Q@W@RD marketplace, whale-AI fashion engine, the .buddha archive, Nick Knacks, and the arcade — all in one." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/cyberpunk.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#000; --deep:#020807;
+  --green:#00ff66; --green-2:#7cff9b; --green-3:#b7ffd0;
+  --gold:#f0c040; --blue:#38bdf8; --purple:#9f7aea;
+  --text:#e7fff0; --muted:#718875;
+  --line:rgba(0,255,102,.18); --line-strong:rgba(0,255,102,.42);
+  --pill:999px; --radius:26px;
+  --shadow:0 0 34px rgba(0,255,102,.18),0 0 110px rgba(0,255,102,.07);
+  --fast:180ms ease;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:var(--text);
+  font-family:"JetBrains Mono",Consolas,monospace;
+  overflow-x:hidden;
+}
+a{color:var(--green);text-decoration:none}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-thumb{background:rgba(0,255,102,.34);border-radius:20px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ATMOSPHERE */
+#matrix{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.32}
+#scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,102,.015) 2px,rgba(0,255,102,.015) 4px)}
+.haze{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(circle at 16% 0%,rgba(0,255,102,.16),transparent 32%),
+    radial-gradient(circle at 86% 14%,rgba(56,189,248,.08),transparent 34%),
+    radial-gradient(circle at 50% 100%,rgba(159,122,234,.07),transparent 42%),
+    linear-gradient(180deg,rgba(0,0,0,.05),#000 92%)}
+.wrap{position:relative;z-index:5}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.85rem clamp(.9rem,3vw,1.6rem);
+  border-bottom:1px solid var(--line);background:rgba(0,0,0,.72);backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:.7rem;min-width:0}
+.brand .mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  border:1px solid var(--line-strong);color:var(--green);font-weight:800;
+  background:radial-gradient(circle,rgba(0,255,102,.16),transparent 70%),#000;
+  text-shadow:0 0 18px var(--green);box-shadow:0 0 22px rgba(0,255,102,.22)}
+.brand strong{display:block;color:var(--green-2);letter-spacing:.2em;text-transform:uppercase;font-size:.82rem}
+.brand span{display:block;color:var(--muted);font-size:.6rem;letter-spacing:.08em;margin-top:.12rem}
+.nav-links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{border:1px solid var(--line);border-radius:var(--pill);background:rgba(0,0,0,.5);
+  color:var(--text);padding:.5rem .85rem;font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;transition:var(--fast)}
+.nav-links a:hover{border-color:var(--green);color:var(--green-2);transform:translateY(-2px);box-shadow:0 0 18px rgba(0,255,102,.22)}
+
+/* HERO */
+.hero{min-height:calc(100vh - 70px);padding:clamp(1.5rem,5vw,4.5rem) clamp(1.2rem,5vw,4rem);
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.kicker{color:var(--green);font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;margin-bottom:1.1rem}
+.hero h1{color:var(--green-2);font-size:clamp(3rem,11vw,9rem);line-height:.8;letter-spacing:-.1em;
+  text-transform:lowercase;text-shadow:0 0 34px rgba(0,255,102,.45),0 0 120px rgba(0,255,102,.2)}
+.hero h1 .b2{display:block;color:var(--green-3)}
+.glitch{position:relative}
+.glitch::before,.glitch::after{content:"a bit";position:absolute;left:0;top:0;opacity:.65;pointer-events:none}
+.glitch::before{color:var(--blue);animation:gl1 2.6s infinite steps(2)}
+.glitch::after{color:var(--purple);animation:gl2 3.4s infinite steps(2)}
+@keyframes gl1{0%,92%,100%{transform:translate(0,0);opacity:0}93%{transform:translate(-3px,1px);opacity:.6}97%{transform:translate(2px,-1px)}}
+@keyframes gl2{0%,90%,100%{transform:translate(0,0);opacity:0}91%{transform:translate(3px,-2px);opacity:.5}96%{transform:translate(-2px,1px)}}
+.lede{margin-top:1.3rem;max-width:680px;color:var(--muted);line-height:1.85;font-size:clamp(.86rem,1.4vw,1.05rem)}
+.rotator{color:var(--green-2)}
+.cta-row{margin-top:1.5rem;display:flex;gap:.65rem;flex-wrap:wrap}
+.btn{border:1px solid var(--line);border-radius:var(--pill);background:rgba(0,0,0,.55);color:var(--text);
+  padding:.7rem 1.15rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;transition:var(--fast);cursor:pointer}
+.btn:hover{border-color:var(--green);color:var(--green-2);transform:translateY(-2px);box-shadow:0 0 20px rgba(0,255,102,.22)}
+.btn.primary{border-color:transparent;background:linear-gradient(135deg,#00cc55,#00ff66);color:#001b0b;font-weight:800}
+.btn.gold{border-color:transparent;background:linear-gradient(135deg,#d4a820,#f0c040);color:#1a1000;font-weight:800}
+.stats{margin-top:1.5rem;display:grid;grid-template-columns:repeat(4,minmax(80px,1fr));gap:.7rem;max-width:640px}
+.stat{border:1px solid var(--line);border-radius:18px;background:rgba(0,0,0,.36);padding:.8rem;box-shadow:inset 0 0 20px rgba(0,255,102,.04)}
+.stat strong{display:block;color:var(--green);font-size:1.3rem}
+.stat span{display:block;color:var(--muted);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.15rem}
+
+/* BUDDHA STAGE */
+.stage{justify-self:center;width:min(440px,90vw);aspect-ratio:.9;position:relative;display:grid;place-items:center;
+  border:1px solid var(--line-strong);border-radius:44px;overflow:hidden;
+  background:radial-gradient(circle at center,rgba(0,255,102,.14),transparent 58%),linear-gradient(180deg,rgba(0,255,102,.08),rgba(0,0,0,.25)),rgba(0,0,0,.56);
+  box-shadow:var(--shadow),inset 0 0 72px rgba(0,255,102,.07)}
+.stage::before{content:"";position:absolute;width:130%;height:130%;
+  background:conic-gradient(from 0deg,transparent,rgba(0,255,102,.38),transparent,rgba(56,189,248,.18),transparent);
+  animation:spin 18s linear infinite;opacity:.3}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage pre{position:relative;z-index:2;color:#fff;font-size:clamp(8px,1.5vw,13px);line-height:1.05;white-space:pre;text-align:center;
+  text-shadow:0 0 4px #fff,0 0 14px var(--green),0 0 38px rgba(0,255,102,.7)}
+.eye{color:var(--green);animation:eye 1.35s infinite alternate;text-shadow:0 0 9px var(--green),0 0 24px var(--green),0 0 52px var(--green)}
+@keyframes eye{from{opacity:.44;filter:brightness(.85)}to{opacity:1;filter:brightness(2)}}
+.readout{position:absolute;left:1rem;right:1rem;bottom:1rem;height:78px;padding:.6rem;
+  border:1px solid rgba(0,255,102,.13);border-radius:16px;background:rgba(0,0,0,.46);overflow:hidden;
+  text-align:left;color:var(--green);font-size:.56rem;line-height:1.4;opacity:.84}
+.readout div{white-space:nowrap;opacity:.7}
+
+/* MARQUEE */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.8rem 0;overflow:hidden;background:rgba(0,0,0,.5)}
+.marquee{display:flex;width:max-content;gap:2rem;color:var(--green);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;animation:scroll 30s linear infinite}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* WORLDS */
+.section{padding:clamp(2rem,6vw,5rem) clamp(1.2rem,5vw,4rem)}
+.section-head{margin-bottom:2rem}
+.section-head .sk{color:var(--green);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase}
+.section-head h2{margin-top:.6rem;color:var(--green-2);font-size:clamp(1.8rem,5vw,3.2rem);letter-spacing:-.04em;text-transform:lowercase;
+  text-shadow:0 0 30px rgba(0,255,102,.35)}
+.section-head p{margin-top:.6rem;color:var(--muted);max-width:680px;line-height:1.8;font-size:.9rem}
+.worlds{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.world{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;overflow:hidden;
+  border:1px solid var(--line);border-radius:var(--radius);background:#020807;text-decoration:none;color:var(--text);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.world:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 0 36px rgba(0,255,102,.22)}
+.world .thumb{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5;transition:opacity .25s ease,transform .35s ease;filter:saturate(1.1)}
+.world:hover .thumb{opacity:.72;transform:scale(1.05)}
+.world .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.5) 45%,rgba(2,8,7,.96) 100%)}
+.world .body{position:relative;z-index:2;padding:1.3rem}
+.world .tag{display:inline-block;border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.18rem .6rem;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.7rem}
+.world .tag.g{border-color:rgba(240,192,64,.5);color:var(--gold)}
+.world h3{color:var(--green-2);font-size:1.25rem;letter-spacing:.02em;text-transform:lowercase}
+.world p{margin-top:.5rem;color:var(--muted);font-size:.76rem;line-height:1.7}
+.world .go{margin-top:.9rem;color:var(--green);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase}
+.world.ascii .thumb{display:grid;place-items:center;background:radial-gradient(circle,rgba(0,255,102,.12),transparent 60%),#020807;opacity:.85}
+.world.ascii .glyph{font-size:4.5rem;color:var(--green);text-shadow:0 0 30px var(--green);opacity:.55}
+
+/* LORE */
+.lore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.lore .card{border:1px solid var(--line);border-radius:var(--radius);background:rgba(0,0,0,.45);padding:1.3rem;min-height:200px;
+  box-shadow:inset 0 0 34px rgba(0,255,102,.03)}
+.lore h3{color:var(--green-2);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem}
+.lore p{color:var(--muted);font-size:.8rem;line-height:1.85}
+
+/* GATE EASTER EGG */
+.gate{border:1px solid var(--line-strong);border-radius:var(--radius);background:rgba(0,0,0,.55);
+  padding:clamp(1.4rem,4vw,2.4rem);max-width:620px;box-shadow:var(--shadow)}
+.gate .q{color:var(--green);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase}
+.gate h3{margin-top:.6rem;color:var(--green-2);font-size:clamp(1.2rem,3vw,1.8rem);text-transform:lowercase}
+.gate .row{margin-top:1.1rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.gate input{flex:1;min-width:200px;background:transparent;border:1px solid var(--line);border-radius:var(--pill);
+  color:var(--text);padding:.7rem 1rem;outline:none;font:inherit}
+.gate input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,255,102,.14)}
+.gate .out{margin-top:.9rem;min-height:1.3rem;color:var(--gold);font-size:.78rem;white-space:pre-wrap;line-height:1.6}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:clamp(2rem,5vw,3.5rem) clamp(1.2rem,5vw,4rem);background:rgba(0,0,0,.5)}
+.footer .top{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;align-items:flex-start}
+.footer h4{color:var(--green-2);font-size:1.4rem;text-transform:lowercase;letter-spacing:-.02em}
+.footer .sub{color:var(--muted);font-size:.74rem;margin-top:.4rem;max-width:340px;line-height:1.7}
+.socials{display:flex;gap:.5rem;flex-wrap:wrap}
+.socials a{border:1px solid var(--line);border-radius:var(--pill);padding:.55rem .9rem;color:var(--text);
+  font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;transition:var(--fast)}
+.socials a:hover{border-color:var(--green);color:var(--green-2);transform:translateY(-2px);box-shadow:0 0 16px rgba(0,255,102,.2)}
+.colophon{margin-top:2rem;color:var(--muted);font-size:.64rem;letter-spacing:.06em;line-height:1.8}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .lore{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .nav-links{justify-content:flex-start}
+  .hero h1{font-size:clamp(2.8rem,17vw,5rem)}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="matrix" aria-hidden="true"></canvas>
+<div id="scanlines" aria-hidden="true"></div>
+<div class="haze" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav class="nav">
+    <div class="brand">
+      <div class="mark">◈</div>
+      <div><strong>A BIT BIZAARE</strong><span>where design becomes identity</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="music/">music</a>
+      <a href="marketplace/">marketplace</a>
+      <a href="fashion/">fashion</a>
+      <a href="buddha/">.buddha</a>
+      <a href="archive/">archive</a>
+      <a href="shop/">shop</a>
+      <a href="arcade/">arcade</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="kicker">fenix_the_producer · q@w@rd · zengriffeyjr · csulb</div>
+      <h1><span class="glitch">a bit</span><span class="b2">bizaare</span></h1>
+      <p class="lede">
+        One archive for the whole universe — producer, rapper, teacher, sociologist.
+        Campus-scale soundtracks, an identity marketplace, a whale-AI fashion engine,
+        a meditating .buddha archive, neon relics, and two games.
+        <br><br>The system reads every drop as <span class="rotator" id="rotator">frequency</span>.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="music/">enter the music</a>
+        <a class="btn gold" href="fashion/">build a fit</a>
+        <a class="btn" href="#worlds">explore worlds</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>7</strong><span>worlds</span></div>
+        <div class="stat"><strong>432</strong><span>hz</span></div>
+        <div class="stat"><strong id="loopStat">0</strong><span>loops</span></div>
+        <div class="stat"><strong>&#8734;</strong><span>archive</span></div>
+      </div>
+    </div>
+
+    <div class="stage" role="img" aria-label="Meditating buddha">
+<pre>
+           _ooooo_
+        .o888888888o.
+       8888  <span class="eye">&#9679;</span>  <span class="eye">&#9679;</span> 8888
+      88       _       88
+      88     \___/     88
+       88.           .88
+        '88oo_____oo88'
+            /|   |\
+           / |   | \
+        __/  |___|  \__
+      .'   _/     \_   '.
+     /   .'  .---.  '.   \
+    /___/   (     )   \___\
+       /__   \___/   __\
+      (___)   ___   (___)
+        \____/   \____/
+</pre>
+      <div class="readout" id="readout"></div>
+    </div>
+  </section>
+
+  <section class="strip" aria-hidden="true">
+    <div class="marquee">
+      <span>a bit bizaare</span><span>frequency mind</span><span>closet as identity</span><span>sound as garment</span><span>whale signal feed</span><span>safe infinity</span><span>who is the teacher without the hat</span><span>q@w@rd</span>
+      <span>a bit bizaare</span><span>frequency mind</span><span>closet as identity</span><span>sound as garment</span><span>whale signal feed</span><span>safe infinity</span><span>who is the teacher without the hat</span><span>q@w@rd</span>
+    </div>
+  </section>
+
+  <section class="section" id="worlds">
+    <div class="section-head">
+      <div class="sk">// enter a world</div>
+      <h2>seven doors, one archive</h2>
+      <p>Every project fenix has ever shipped, merged into one site. Click a door.</p>
+    </div>
+    <div class="worlds">
+
+      <a class="world" href="music/">
+        <div class="thumb" style="background-image:url('assets/img/cyberpunk.png')"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">sound</span>
+          <h3>fenix_the_producer</h3>
+          <p>The music. Bio, links, and a playable archive of tracks — internal locus, reality, power, and more.</p>
+          <div class="go">play &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world" href="marketplace/">
+        <div class="thumb ascii"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">app</span>
+          <h3>q@w@rd marketplace</h3>
+          <p>A Depop × SoundCloud hybrid identity market. Upload garments, tracks, and fragments; the frequency engine reads them.</p>
+          <div class="go">enter &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world" href="fashion/">
+        <div class="thumb" style="background-image:url('assets/img/streetwear.png')"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag g">fashion engine</span>
+          <h3>q@w@rd × zengriffeyjr</h3>
+          <p>A whale-AI fashion system. Build fits, run the drop calendar, and let the stylist score silhouette, texture, and rarity.</p>
+          <div class="go">build a fit &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world" href="buddha/">
+        <div class="thumb" style="background-image:url('assets/img/buddha.png')"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">archive system</span>
+          <h3>.buddha — final archive</h3>
+          <p>A meditating whale-intelligence interface. Limbic pressure, harmonic resonance, and safe infinity, all debugCrash-protected.</p>
+          <div class="go">observe &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world" href="archive/">
+        <div class="thumb" style="background-image:url('assets/img/samue.png')"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">lookbook</span>
+          <h3>the archive</h3>
+          <p>Minimal. Monastic. Cyber-noir. The Samue jacket, the streetwear, the Dodgers fits — the first garments in the Q@w@rd archive.</p>
+          <div class="go">view &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world" href="shop/">
+        <div class="thumb" style="background-image:url('assets/img/flowerpower.png')"></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">shop</span>
+          <h3>nick knacks</h3>
+          <p>Neon knick-knacks and cultural treasures. Flower Power, Become a Tree, Life is the Revolution — handmade from a neon world.</p>
+          <div class="go">shop &#8594;</div>
+        </div>
+      </a>
+
+      <a class="world ascii" href="arcade/">
+        <div class="thumb ascii"><div class="glyph">&#9670;</div></div>
+        <div class="veil"></div>
+        <div class="body">
+          <span class="tag">play</span>
+          <h3>the arcade</h3>
+          <p>Two games in the Matrix. Code Storm — a falling-code platformer — and the Matrix Sudoku Gate. Don&#39;t forget the magic word.</p>
+          <div class="go">play &#8594;</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="sk">// the lore</div>
+      <h2>what is a bit bizaare?</h2>
+    </div>
+    <div class="lore">
+      <div class="card"><h3>the sound</h3><p>fenix_the_producer makes campus-scale soundtracks for walks, buses, and browser tabs that stay open too long. Indie, rap, score, worldbuilding — out of CSULB.</p></div>
+      <div class="card"><h3>the system</h3><p>Q@W@RD turns design into identity. Garments, tracks, and fragments become a shoppable, listenable feed read through omnitemporal computation and frequency cognition.</p></div>
+      <div class="card"><h3>the ritual</h3><p>Every door is a passcode, every loop recognizes itself. The whale listens beneath the interface. Reality stays reversible in mind. Suchness.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="sk">// failsafe</div>
+      <h2>who is the teacher, without the hat?</h2>
+    </div>
+    <div class="gate">
+      <div class="q">// oppenheimer failsafe</div>
+      <h3>enter passcode to arm consciousness</h3>
+      <div class="row">
+        <input id="gateInput" type="text" placeholder="type the passcode..." autocomplete="off" spellcheck="false" />
+        <button class="btn primary" id="gateBtn">enter</button>
+      </div>
+      <div class="out" id="gateOut"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="top">
+      <div>
+        <h4>a bit bizaare</h4>
+        <p class="sub">fenix_the_producer — producer, rapper, teacher, sociologist. The whole archive, merged into one.</p>
+      </div>
+      <div class="socials">
+        <a href="https://soundcloud.com/user-251756870" target="_blank" rel="noopener">SoundCloud</a>
+        <a href="https://www.bandlab.com/producerfenix" target="_blank" rel="noopener">BandLab</a>
+        <a href="https://www.youtube.com/@fenix_the_producer" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@fenix_the_producer/video/7648784463974927646" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/p/DZSZGUAG3nh/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://github.com/abitbizaaare" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="colophon">
+      &#169; 2026 A BIT BIZAARE · fenix_the_producer · Q@W@RD · ZenGriffeyJR<br>
+      everything is vibration. everything is drift. all moments occur simultaneously.
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ---------- MATRIX RAIN ---------- */
+(function(){
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+  let w, h, columns, drops;
+  const chars = "01アイウエオカキ$@◈☸QWRD";
+  const fontSize = 16;
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    columns = Math.floor(w / fontSize);
+    drops = Array(columns).fill(1).map(()=>Math.random()*h/fontSize);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  function draw(){
+    ctx.fillStyle = "rgba(0,0,0,.07)";
+    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = "#00ff66";
+    ctx.font = fontSize + "px monospace";
+    for(let i=0;i<drops.length;i++){
+      const t = chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(t, i*fontSize, drops[i]*fontSize);
+      if(drops[i]*fontSize > h && Math.random() > .975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+  setInterval(draw, 40);
+})();
+
+/* ---------- HERO ROTATOR + LOOP STAT ---------- */
+(function(){
+  const words = ["frequency","identity","a garment","a timeline","vibration","signal","suchness"];
+  const el = document.getElementById("rotator");
+  let i = 0;
+  setInterval(()=>{ i=(i+1)%words.length; el.textContent = words[i]; }, 1900);
+  const loopEl = document.getElementById("loopStat");
+  let loops = 0;
+  setInterval(()=>{ loops++; loopEl.textContent = loops; }, 1400);
+})();
+
+/* ---------- FIELD READOUT ---------- */
+(function(){
+  const readout = document.getElementById("readout");
+  const words = ["identity","frequency","closet","sound","design","qaward","resonance","buddha","whale"];
+  setInterval(()=>{
+    const wseed = words[Math.floor(Math.random()*words.length)];
+    const line = Array.from({length:46},()=> Math.random()>.88 ? wseed[Math.floor(Math.random()*wseed.length)] : "$").join("");
+    const d = document.createElement("div"); d.textContent = line;
+    readout.appendChild(d);
+    while(readout.children.length > 7) readout.firstChild.remove();
+  }, 280);
+})();
+
+/* ---------- PASSCODE EASTER EGG ---------- */
+(function(){
+  const input = document.getElementById("gateInput");
+  const out = document.getElementById("gateOut");
+  const btn = document.getElementById("gateBtn");
+  // Accept the recurring brand passcodes
+  const codes = {
+    "who is the teacher without the hat": "buddha",
+    "who is the teacher, without the hat?": "buddha",
+    "suchness": "suchness",
+    "42": "42"
+  };
+  function check(){
+    const v = input.value.trim().toLowerCase();
+    if(codes[v]){
+      out.textContent = "ACCESS GRANTED — i am become recursion, destroyer of illusions.\nall vectors checked. all outcomes observed. action remains reversible in mind.";
+      setTimeout(()=>{ window.location.href = "buddha/"; }, 1400);
+    } else if(v.length){
+      out.textContent = "incorrect passcode. reality remains unarmed. (try: who is the teacher without the hat)";
+    }
+  }
+  btn.addEventListener("click", check);
+  input.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+})();
+</script>
+</body>
+</html>

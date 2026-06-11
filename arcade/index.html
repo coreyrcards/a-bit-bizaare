@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A BIT BIZAARE — The Arcade</title>
+<meta property="og:title" content="A BIT BIZAARE — The Arcade" />
+<meta property="og:description" content="Two games in the Matrix: Code Storm platformer and the Matrix Sudoku Gate." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --green:#00ff66;--green-2:#7cff9b;--gold:#f0c040;
+  --text:#e7fff0;--muted:#718875;
+  --line:rgba(0,255,102,.18);--line-strong:rgba(0,255,102,.42);
+  --pill:999px;--shadow:0 0 34px rgba(0,255,102,.18),0 0 110px rgba(0,255,102,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:var(--text);font-family:"JetBrains Mono",Consolas,monospace;overflow-x:hidden;min-height:100vh}
+a{color:var(--green);text-decoration:none}
+canvas#matrix{position:fixed;inset:0;z-index:-1;opacity:.3}
+.abz-home{position:fixed;top:14px;left:14px;z-index:50;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green);background:rgba(0,0,0,.75);border:1px solid var(--line-strong);border-radius:999px;padding:7px 13px;
+  backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)}
+.shell{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:clamp(4rem,9vw,6rem) clamp(1.1rem,4vw,2rem) 4rem}
+.head{text-align:center;margin-bottom:2.6rem}
+.head .sk{color:var(--green);font-size:.64rem;letter-spacing:.34em;text-transform:uppercase}
+.head h1{margin-top:.7rem;font-size:clamp(2.4rem,9vw,5rem);text-transform:lowercase;letter-spacing:-.04em;color:var(--green-2);
+  text-shadow:0 0 30px rgba(0,255,102,.45)}
+.head p{margin:1rem auto 0;max-width:540px;color:var(--muted);font-size:.86rem;line-height:1.8}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
+.game{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  background:rgba(6,16,12,.7);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.game:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:var(--shadow)}
+.game .top{min-height:170px;display:grid;place-items:center;position:relative;overflow:hidden;
+  background:radial-gradient(circle,rgba(0,255,102,.14),transparent 60%),#020807;border-bottom:1px solid var(--line)}
+.game .glyph{font-size:4rem;color:var(--green);text-shadow:0 0 30px var(--green);opacity:.7}
+.game .body{padding:1.3rem}
+.game .tag{display:inline-block;border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.16rem .55rem;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6rem}
+.game h3{font-size:1.2rem;color:var(--green-2);text-transform:lowercase}
+.game p{margin-top:.55rem;color:var(--muted);font-size:.78rem;line-height:1.7}
+.game .ctrls{margin-top:.8rem;color:var(--muted);font-size:.64rem;letter-spacing:.08em}
+.game .play{margin-top:1rem;display:inline-block;border:0;border-radius:var(--pill);
+  background:linear-gradient(135deg,#00cc55,#00ff66);color:#001b0b;font-weight:800;
+  padding:.6rem 1.2rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.foot{margin-top:2.6rem;text-align:center;color:var(--muted);font-size:.66rem;line-height:1.9;letter-spacing:.06em}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="abz-home" href="../">&#8592; a bit bizaare</a>
+<canvas id="matrix"></canvas>
+
+<div class="shell">
+  <div class="head">
+    <div class="sk">// see how deep the rabbit hole goes</div>
+    <h1>the arcade</h1>
+    <p>Two games rendered inside the Matrix. Built in raw canvas, no engine, no mercy.</p>
+  </div>
+
+  <div class="games">
+    <a class="game" href="matrixman/">
+      <div class="top"><div class="glyph">&#9632;</div></div>
+      <div class="body">
+        <span class="tag">platformer</span>
+        <h3>code storm</h3>
+        <p>Ride falling chunks of code through an endless Matrix downpour. Don&#39;t fall through the source.</p>
+        <div class="ctrls">controls: &#8592; &#8594; / A D to move · &#8593; / W / space to jump</div>
+        <span class="play">play &#8594;</span>
+      </div>
+    </a>
+
+    <a class="game" href="sudoku/">
+      <div class="top"><div class="glyph">&#9636;</div></div>
+      <div class="body">
+        <span class="tag">puzzle gate</span>
+        <h3>matrix sudoku gate</h3>
+        <p>Solve the Sudoku (or don&#39;t) and crack the passcode before the timer runs out. Ah ah ah — you didn&#39;t say the magic word.</p>
+        <div class="ctrls">hint: int passcode = 6 * 7</div>
+        <span class="play">enter &#8594;</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="foot">&#169; 2026 a bit bizaare · the arcade · hold on to your butts</div>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+  let w,h,cols,drops; const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>[]{};=+-*/"; const fs=16;
+  function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; cols=Math.floor(w/fs); drops=Array(cols).fill(1); }
+  resize(); addEventListener("resize", resize);
+  setInterval(()=>{
+    ctx.fillStyle="rgba(0,0,0,.05)"; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle="#00ff66"; ctx.font=fs+"px monospace";
+    for(let i=0;i<drops.length;i++){
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*fs, drops[i]*fs);
+      if(drops[i]*fs>h && Math.random()>.975) drops[i]=0;
+      drops[i]++;
+    }
+  }, 50);
+})();
+</script>
+</body>
+</html>

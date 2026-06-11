@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>fenix_the_producer — Music Archive</title>
+<meta property="og:title" content="fenix_the_producer — Music Archive" />
+<meta property="og:description" content="A living archive of indie, DIY, bedroom-producer eras. Producer, rapper, teacher, sociologist." />
+<meta property="og:type" content="music.musician" />
+<meta property="og:image" content="../assets/img/cyberpunk.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --green:#00ff66;--green-2:#7cff9b;--gold:#f0c040;--blue:#38bdf8;
+  --text:#e7fff0;--muted:#718875;
+  --line:rgba(0,255,102,.18);--line-strong:rgba(0,255,102,.42);
+  --pill:999px;--shadow:0 0 34px rgba(0,255,102,.18),0 0 110px rgba(0,255,102,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:var(--text);font-family:"JetBrains Mono",Consolas,monospace;overflow-x:hidden}
+a{color:var(--green);text-decoration:none}
+canvas#matrix{position:fixed;inset:0;z-index:-1;background:#000}
+.abz-home{position:fixed;top:14px;left:14px;z-index:50;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green);background:rgba(0,0,0,.75);border:1px solid var(--line-strong);border-radius:999px;padding:7px 13px;
+  backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)}
+.shell{position:relative;z-index:2;max-width:980px;margin:0 auto;padding:clamp(4rem,9vw,6rem) clamp(1.1rem,4vw,2rem) 4rem}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,1fr);gap:1.6rem;align-items:center;
+  border:1px solid var(--line);border-radius:28px;padding:clamp(1.2rem,4vw,2.2rem);
+  background:linear-gradient(180deg,rgba(0,255,102,.06),rgba(0,0,0,.5)),rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);box-shadow:var(--shadow)}
+.kicker{color:var(--green);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.8rem}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);text-transform:uppercase;letter-spacing:.04em;color:var(--green-2);
+  text-shadow:0 0 30px rgba(0,255,102,.45);line-height:1}
+.hero .sub{margin-top:1rem;color:var(--muted);font-size:.86rem;line-height:1.75;max-width:520px}
+.pills{margin-top:1.1rem;display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.32rem .7rem;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase}
+.cover{position:relative;justify-self:center;width:min(220px,60vw);aspect-ratio:1;border-radius:24px;overflow:hidden;
+  border:1px solid var(--line-strong);box-shadow:var(--shadow)}
+.cover img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(1.15)}
+
+/* LINKS */
+.links{margin-top:1.4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem}
+.link-btn{display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.7rem 1rem;font-size:.74rem;transition:.2s ease}
+.link-btn:hover{background:var(--green);color:#001b0b;transform:translateY(-2px);box-shadow:0 0 18px rgba(0,255,102,.3)}
+
+/* TRACKS */
+.tracks-head{margin:2.6rem 0 1.1rem}
+.tracks-head .sk{color:var(--green);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase}
+.tracks-head h2{margin-top:.5rem;color:var(--green-2);font-size:clamp(1.5rem,4vw,2.4rem);text-transform:lowercase;
+  text-shadow:0 0 24px rgba(0,255,102,.3)}
+.track{border:1px solid var(--line);border-radius:18px;background:rgba(8,18,14,.7);padding:1.1rem 1.2rem;margin-bottom:.9rem;
+  transition:border-color .2s ease,box-shadow .2s ease}
+.track:hover{border-color:var(--line-strong);box-shadow:0 0 22px rgba(0,255,102,.12)}
+.track .meta{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.7rem;flex-wrap:wrap}
+.track .name{display:flex;align-items:center;gap:.7rem}
+.track .num{color:var(--green);opacity:.6;font-size:.78rem;min-width:1.6rem}
+.track h3{font-size:1rem;color:var(--text);font-weight:500}
+.track .fmt{color:var(--muted);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:var(--pill);padding:.16rem .55rem}
+audio{width:100%;height:38px;filter:invert(.92) hue-rotate(85deg) saturate(2);border-radius:8px}
+
+.foot{margin-top:2.6rem;text-align:center;color:var(--muted);font-size:.66rem;line-height:1.9;letter-spacing:.06em}
+
+@media(max-width:760px){ .hero{grid-template-columns:1fr} .cover{order:-1} }
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<a class="abz-home" href="../">&#8592; a bit bizaare</a>
+<canvas id="matrix"></canvas>
+
+<div class="shell">
+  <section class="hero">
+    <div>
+      <div class="kicker">indie · rap · score · worldbuilding · csulb</div>
+      <h1>fenix_the_producer</h1>
+      <p class="sub">
+        Producer, rapper, teacher, sociologist. Campus-scale soundtracks for walks,
+        buses, and browser tabs that stay open too long. A living archive of indie,
+        DIY, bedroom-producer eras.
+      </p>
+      <div class="pills">
+        <span class="pill">csulb</span>
+        <span class="pill">indie / rap / score</span>
+        <span class="pill">worldbuilding</span>
+        <span class="pill">fenix_the_producer</span>
+      </div>
+    </div>
+    <div class="cover"><img src="../assets/img/cyberpunk.png" alt="fenix_the_producer" /></div>
+  </section>
+
+  <div class="links">
+    <a class="link-btn" href="https://soundcloud.com/user-251756870" target="_blank" rel="noopener">SoundCloud &#8599;</a>
+    <a class="link-btn" href="https://on.soundcloud.com/VK1dRUHkFGhExHZfOM" target="_blank" rel="noopener">Latest Track &#8599;</a>
+    <a class="link-btn" href="https://www.bandlab.com/producerfenix" target="_blank" rel="noopener">BandLab &#8599;</a>
+    <a class="link-btn" href="https://www.youtube.com/@fenix_the_producer" target="_blank" rel="noopener">YouTube &#8599;</a>
+    <a class="link-btn" href="https://www.tiktok.com/@fenix_the_producer/video/7648784463974927646" target="_blank" rel="noopener">TikTok &#8599;</a>
+  </div>
+
+  <div class="tracks-head">
+    <div class="sk">// the archive</div>
+    <h2>playable tracks</h2>
+  </div>
+
+  <div id="trackList"></div>
+
+  <div class="foot">
+    everything is vibration. everything is drift.<br>
+    &#169; 2026 fenix_the_producer · a bit bizaare
+  </div>
+</div>
+
+<script>
+/* ---- track archive ---- */
+const TRACKS = [
+  { name: "Internal Locus", src: "../assets/audio/africa.mp3",       fmt: "mp3" },
+  { name: "Reality",        src: "../assets/audio/birthdaybeat.wav", fmt: "wav" },
+  { name: "Fenix",          src: "../assets/audio/fenix.m4a",        fmt: "m4a" },
+  { name: "Power",          src: "../assets/audio/power.m4a",        fmt: "m4a" },
+  { name: "Consciousness",  src: "../assets/audio/consciousness.m4a",fmt: "m4a" },
+  { name: "Darkness",       src: "../assets/audio/darkness.m4a",     fmt: "m4a" },
+  { name: "Signal",         src: "../assets/audio/signal.m4a",       fmt: "m4a" }
+];
+const list = document.getElementById("trackList");
+TRACKS.forEach((t, i) => {
+  const el = document.createElement("div");
+  el.className = "track";
+  const num = String(i + 1).padStart(2, "0");
+  el.innerHTML =
+    '<div class="meta"><div class="name"><span class="num">' + num + '</span>' +
+    '<h3>' + t.name + '</h3></div><span class="fmt">' + t.fmt + '</span></div>';
+  const audio = document.createElement("audio");
+  audio.controls = true;
+  audio.preload = "none";
+  audio.src = t.src;
+  // only one track plays at a time
+  audio.addEventListener("play", () => {
+    document.querySelectorAll("audio").forEach(a => { if (a !== audio) a.pause(); });
+  });
+  el.appendChild(audio);
+  list.appendChild(el);
+});
+
+/* ---- matrix rain ---- */
+(function(){
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+  let w,h,cols,drops;
+  const chars = "01"; const fs = 16;
+  function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; cols=Math.floor(w/fs); drops=Array(cols).fill(1); }
+  resize(); addEventListener("resize", resize);
+  setInterval(()=>{
+    ctx.fillStyle="rgba(0,0,0,.08)"; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle="#00ff66"; ctx.font=fs+"px monospace";
+    for(let i=0;i<drops.length;i++){
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*fs, drops[i]*fs);
+      if(drops[i]*fs>h && Math.random()>.975) drops[i]=0;
+      drops[i]++;
+    }
+  }, 40);
+})();
+</script>
+</body>
+</html>

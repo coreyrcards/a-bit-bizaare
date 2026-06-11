@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Matrix Sudoku Gate</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .center-wrapper {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #gameScreen, #finalScreen {
+      text-align: center;
+      width: 100%;
+    }
+
+    #finalScreen {
+      display: none;
+      color: #ffffff;
+    }
+
+    #finalMain {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    #finalSub {
+      color: #00ff00;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    #gifContainer {
+      margin-top: 40px;
+    }
+
+    #gifContainer img {
+      width: 300px;
+      height: auto;
+      border: 2px solid #00ff00;
+    }
+
+    #ahahahContainer img {
+      width: 250px;
+      height: auto;
+      border: 2px solid #00ff00;
+      margin-top: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto 20px auto;
+    }
+
+    td {
+      border: 1px solid #00ff00;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+
+    input.sudoku-cell {
+      width: 28px;
+      height: 28px;
+      background: black;
+      color: #00ff00;
+      border: none;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .prefilled {
+      color: #00ff00;
+    }
+
+    #passcodeSection {
+      margin-top: 20px;
+    }
+
+    #passcodeInput {
+      background: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 4px 8px;
+      font-family: inherit;
+    }
+
+    #enterButton {
+      background: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 4px 10px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    #timer {
+      margin-top: 15px;
+      font-size: 1.2rem;
+    }
+
+    /* NEW: Matrixman link button */
+    .matrix-link {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      text-decoration: none;
+      font-family: "Courier New", monospace;
+    }
+  </style>
+</head>
+<body>
+<a href="../../" class="abz-home" style="position:fixed;top:14px;left:14px;z-index:2000000;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#00ff66;background:rgba(0,0,0,.75);border:1px solid rgba(0,255,102,.45);border-radius:999px;padding:7px 13px;text-decoration:none;backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)">&#8592; a bit bizaare</a>
+  <canvas id="matrixCanvas"></canvas>
+
+  <audio id="miracleSound" src="../../assets/audio/miracle.mp3" preload="auto"></audio>
+
+  <div class="center-wrapper">
+    <div id="gameScreen">
+      <h1>Matrix Sudoku Gate</h1>
+      <p>Solve the Sudoku (or don’t) and crack the passcode.</p>
+
+      <table>
+        <tr>
+          <td class="prefilled">5</td><td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td>
+          <td class="prefilled">6</td><td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td>
+          <td><input class="sudoku-cell"></td><td class="prefilled">1</td><td><input class="sudoku-cell"></td>
+        </tr>
+        <tr>
+          <td><input class="sudoku-cell"></td><td class="prefilled">7</td><td><input class="sudoku-cell"></td>
+          <td><input class="sudoku-cell"></td><td class="prefilled">9</td><td><input class="sudoku-cell"></td>
+          <td class="prefilled">3</td><td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td>
+        </tr>
+        <tr>
+          <td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td><td class="prefilled">4</td>
+          <td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td><td class="prefilled">2</td>
+          <td><input class="sudoku-cell"></td><td><input class="sudoku-cell"></td><td class="prefilled">8</td>
+        </tr>
+      </table>
+
+      <div id="ahahahContainer">
+        <img src="../../assets/img/ahahah.gif" alt="Ah Ah Ah GIF">
+      </div>
+
+      <div id="passcodeSection">
+        <p>int passcode = "<span id="mathExpression">6 * 7</span>";</p>
+
+        <label>Enter passcode:</label>
+        <input type="number" id="passcodeInput">
+
+        <!-- UPDATED BUTTON TEXT -->
+        <button id="enterButton">See How Deep The Rabbit Hole Goes</button>
+
+        <div id="timer">Time remaining: <span id="timeLeft">60</span>s</div>
+        <div id="message"></div>
+
+        <!-- NEW MATRIXMAN LINK BUTTON -->
+        <a class="matrix-link" href="../matrixman/">MATRIXMAN</a>
+      </div>
+    </div>
+
+    <div id="finalScreen">
+      <div id="finalMain">Ah Ah Ah You Didn't Say The Magic Word</div>
+      <div id="finalSub">Hold on To Your Butts</div>
+
+      <div id="gifContainer">
+        <img src="../../assets/img/magicword.gif" alt="Magic Word GIF">
+      </div>
+    </div>
+  </div>
+
+  <audio id="successSound" src="../../assets/audio/miracle.mp3" preload="auto"></audio>
+  <audio id="timerSound" src="" preload="auto"></audio>
+
+  <script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 50);
+
+    const correctPasscode = 42;
+    const passcodeInput = document.getElementById("passcodeInput");
+    const enterButton = document.getElementById("enterButton");
+    const message = document.getElementById("message");
+    const gameScreen = document.getElementById("gameScreen");
+    const finalScreen = document.getElementById("finalScreen");
+    const timeLeftSpan = document.getElementById("timeLeft");
+    const successSound = document.getElementById("successSound");
+    const timerSound = document.getElementById("timerSound");
+
+    let timeLeft = 60;
+
+    let timerInterval = setInterval(() => {
+      timeLeft--;
+      timeLeftSpan.textContent = timeLeft;
+
+      if (timerSound && timeLeft % 5 === 0) {
+        timerSound.currentTime = 0;
+        timerSound.play().catch(() => {});
+      }
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        message.textContent = "Time's up.";
+        message.style.color = "#ff0000";
+      }
+    }, 1000);
+
+    function checkPasscode() {
+      const value = parseInt(passcodeInput.value, 10);
+
+      if (value === correctPasscode) {
+        clearInterval(timerInterval);
+        successSound.play().catch(() => {});
+        gameScreen.style.display = "none";
+        finalScreen.style.display = "block";
+      } else {
+        message.textContent = "Incorrect passcode.";
+        message.style.color = "#ff0000";
+      }
+    }
+
+    enterButton.addEventListener("click", checkPasscode);
+    passcodeInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") checkPasscode();
+    });
+
+    const miracle = document.getElementById("miracleSound");
+    miracle.volume = 0;
+
+    function fadeInAudio() {
+      let v = 0;
+      miracle.play().catch(()=>{});
+      const fade = setInterval(() => {
+        v += 0.01;
+        miracle.volume = v;
+        if (v >= 1) clearInterval(fade);
+      }, 40);
+    }
+  </script>
+</body>
+</html>

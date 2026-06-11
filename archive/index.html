@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A BIT BIZAARE — The Archive</title>
+<meta property="og:title" content="A BIT BIZAARE — The Archive" />
+<meta property="og:description" content="Minimal. Monastic. Cyber-noir. The Samue jacket and the first garments in the Q@w@rd archive." />
+<meta property="og:image" content="../assets/img/samue.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --green:#00ff66;--green-2:#7cff9b;--gold:#f0c040;
+  --text:#e7fff0;--muted:#718875;
+  --line:rgba(0,255,102,.18);--line-strong:rgba(0,255,102,.42);
+  --pill:999px;--shadow:0 0 34px rgba(0,255,102,.16),0 0 110px rgba(0,255,102,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;color:var(--text);font-family:"JetBrains Mono",Consolas,monospace;overflow-x:hidden}
+a{color:var(--green);text-decoration:none}
+canvas#matrix{position:fixed;inset:0;z-index:-1;opacity:.16}
+.abz-home{position:fixed;top:14px;left:14px;z-index:50;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green);background:rgba(0,0,0,.75);border:1px solid var(--line-strong);border-radius:999px;padding:7px 13px;
+  backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)}
+.shell{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:clamp(4rem,9vw,6rem) clamp(1.1rem,4vw,2rem) 4rem}
+
+.head{text-align:center;margin-bottom:2.6rem}
+.head .sk{color:var(--green);font-size:.64rem;letter-spacing:.34em;text-transform:uppercase}
+.head h1{margin-top:.7rem;font-size:clamp(2.4rem,9vw,5rem);letter-spacing:.06em;color:var(--green-2);
+  text-shadow:0 0 30px rgba(0,255,102,.45);line-height:.95}
+.head p{margin:1rem auto 0;max-width:560px;color:var(--muted);font-size:.86rem;line-height:1.8}
+.head .err{display:inline-block;margin-top:1.3rem;font-size:.7rem;letter-spacing:.22em;color:#00ff00;background:#000;
+  padding:.5rem 1.1rem;border-radius:6px;box-shadow:0 0 16px rgba(0,255,0,.4);border:1px solid rgba(0,255,0,.4)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.piece{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:rgba(6,16,12,.7);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.piece:hover{transform:translateY(-5px);border-color:var(--green);box-shadow:var(--shadow)}
+.piece.feature{grid-column:span 2}
+.piece .img{position:relative;aspect-ratio:4/5;overflow:hidden;background:#020807}
+.piece.feature .img{aspect-ratio:16/10}
+.piece .img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;filter:contrast(1.05)}
+.piece:hover .img img{transform:scale(1.05)}
+.piece .meta{padding:1.1rem 1.2rem}
+.piece .tag{display:inline-block;border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.16rem .55rem;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6rem}
+.piece h3{font-size:1.05rem;letter-spacing:.04em;color:var(--text);font-weight:500}
+.piece p{margin-top:.5rem;color:var(--muted);font-size:.76rem;line-height:1.7}
+
+.outro{margin-top:3rem;text-align:center}
+.outro .links{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.outro .links a{border:1px solid var(--line-strong);border-radius:var(--pill);color:var(--green);
+  padding:.6rem 1.1rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;transition:.2s ease}
+.outro .links a:hover{background:var(--green);color:#001b0b;transform:translateY(-2px)}
+.outro .colophon{color:var(--muted);font-size:.66rem;line-height:1.9;letter-spacing:.06em}
+
+@media(max-width:720px){ .piece.feature{grid-column:span 1} }
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="abz-home" href="../">&#8592; a bit bizaare</a>
+<canvas id="matrix"></canvas>
+
+<div class="shell">
+  <div class="head">
+    <div class="sk">// q@w@rd clothing archive</div>
+    <h1>A BIT BIZAARE</h1>
+    <p>Minimal. Monastic. Cyber-noir. A blend of tradition and glitch-era aesthetics — the first garments in the Q@w@rd archive.</p>
+    <div class="err">ERROR: NOT FOR SALE</div>
+  </div>
+
+  <div class="grid">
+    <article class="piece feature">
+      <div class="img"><img src="../assets/img/samue.png" alt="Samue Jacket" /></div>
+      <div class="meta">
+        <span class="tag">archive 001</span>
+        <h3>THE SAMUE JACKET</h3>
+        <p>The first garment in the Q@w@rd archive — a blend of tradition and glitch-era aesthetics. Monastic silhouette, cyber-noir intent.</p>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="img"><img src="../assets/img/streetwear.png" alt="Streetwear fragment" /></div>
+      <div class="meta">
+        <span class="tag">archive 002</span>
+        <h3>STREETWEAR FRAGMENT</h3>
+        <p>Signal garment. Black base, acid stitch, wide silhouette — built for deep water and green electricity.</p>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="img"><img src="../assets/img/dodgers.jpg" alt="Dodgers fit" /></div>
+      <div class="meta">
+        <span class="tag">archive 003</span>
+        <h3>DODGERS FIT</h3>
+        <p>Hometown blue rerouted through the archive. Worn cotton, found energy, never polished.</p>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="img"><img src="../assets/img/dodgersstyle.png" alt="Dodgers style study" /></div>
+      <div class="meta">
+        <span class="tag">archive 004</span>
+        <h3>DODGERS — STYLE STUDY</h3>
+        <p>A study in layering the uniform into streetwear. Tradition stacked on glitch.</p>
+      </div>
+    </article>
+
+    <article class="piece">
+      <div class="img"><img src="../assets/img/asia.png" alt="Asia study" /></div>
+      <div class="meta">
+        <span class="tag">archive 005</span>
+        <h3>EAST STUDY</h3>
+        <p>Reference plate from the worldbuilding files. Frequency and form, indexed by memory.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="outro">
+    <div class="links">
+      <a href="https://www.instagram.com/p/DZSZGUAG3nh/" target="_blank" rel="noopener">Instagram &#8599;</a>
+      <a href="https://on.soundcloud.com/DrkzxHrg3dNSo42guU" target="_blank" rel="noopener">?!? &#8599;</a>
+      <a href="../fashion/">Build a fit in the engine &#8594;</a>
+    </div>
+    <div class="colophon">&#169; 2026 Q@w@rd archive · a bit bizaare · not for sale</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+  let w,h,cols,drops; const chars="01"; const fs=16;
+  function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; cols=Math.floor(w/fs); drops=Array(cols).fill(1).map(()=>Math.random()*h/fs); }
+  resize(); addEventListener("resize", resize);
+  setInterval(()=>{
+    ctx.fillStyle="rgba(0,0,0,.06)"; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle="#0f0"; ctx.font=fs+"px monospace";
+    for(let i=0;i<drops.length;i++){
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*fs, drops[i]*fs);
+      if(drops[i]*fs>h && Math.random()>.975) drops[i]=0;
+      drops[i]++;
+    }
+  }, 50);
+})();
+</script>
+</body>
+</html>

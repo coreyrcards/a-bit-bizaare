@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Q@W@RD .BUDDHA — Final Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #000;
+  --deep: #020807;
+  --panel: rgba(3, 14, 10, 0.78);
+  --panel-2: rgba(6, 18, 28, 0.74);
+  --glass: rgba(0, 0, 0, 0.54);
+  --green: #00ff66;
+  --green-2: #7cff9b;
+  --green-3: #b7ffd0;
+  --blue: #38bdf8;
+  --text: #e7fff0;
+  --muted: #718875;
+  --line: rgba(0, 255, 102, 0.18);
+  --line-strong: rgba(0, 255, 102, 0.42);
+  --danger: #ff4d6d;
+  --warn: #ffd166;
+  --radius: 26px;
+  --pill: 999px;
+  --shadow: 0 0 34px rgba(0,255,102,.18), 0 0 110px rgba(0,255,102,.08);
+  --fast: 180ms ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; scroll-behavior: smooth; }
+body {
+  background: #000;
+  color: var(--text);
+  font-family: "JetBrains Mono", Consolas, monospace;
+  overflow: hidden;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: var(--green); text-decoration: none; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(0,255,102,.35); border-radius: 20px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* GLOBAL ATMOSPHERE */
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: .34;
+}
+#matrix span {
+  position: absolute;
+  top: -44px;
+  color: var(--green);
+  font-size: 18px;
+  text-shadow: 0 0 8px var(--green), 0 0 24px var(--green);
+  animation: rainFall linear forwards;
+}
+@keyframes rainFall { to { transform: translateY(112vh); } }
+
+.page-haze {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,255,102,.16), transparent 34%),
+    radial-gradient(circle at 82% 24%, rgba(56,189,248,.08), transparent 32%),
+    radial-gradient(circle at 50% 100%, rgba(0,255,102,.08), transparent 40%),
+    linear-gradient(180deg, rgba(0,0,0,.05), #000 90%);
+}
+
+/* LANDING WEBSITE */
+#landing {
+  position: relative;
+  z-index: 5;
+  height: 100vh;
+  overflow-y: auto;
+  background: transparent;
+}
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 72px;
+  padding: 0 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(16px);
+}
+.logo-lockup { display: flex; align-items: center; gap: .75rem; min-width: 0; }
+.logo-mark {
+  width: 42px; height: 42px; border-radius: 13px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  background: radial-gradient(circle, rgba(0,255,102,.16), transparent 70%), #000;
+  color: var(--green);
+  text-shadow: 0 0 18px var(--green);
+  box-shadow: 0 0 22px rgba(0,255,102,.22);
+  overflow: hidden;
+}
+.logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+.logo-text strong {
+  display: block;
+  color: var(--green-2);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-size: .86rem;
+}
+.logo-text span {
+  display: block;
+  color: var(--muted);
+  letter-spacing: .08em;
+  font-size: .62rem;
+  margin-top: .1rem;
+}
+.nav-links { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; justify-content: flex-end; }
+.btn, .chip, .tab, .feed-action, .archive-filter, .engine-btn, .inspector-btn {
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  background: rgba(0,0,0,.58);
+  color: var(--text);
+  padding: .58rem .95rem;
+  font-size: .68rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  transition: var(--fast);
+  backdrop-filter: blur(10px);
+}
+.btn:hover, .chip:hover, .tab:hover, .feed-action:hover, .archive-filter:hover, .engine-btn:hover, .inspector-btn:hover {
+  border-color: var(--green);
+  color: var(--green-2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,255,102,.22);
+}
+.btn.primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, #00cc55, #00ff66);
+  color: #001b0b;
+  font-weight: 800;
+}
+
+.hero {
+  min-height: calc(100vh - 72px);
+  padding: clamp(1.2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+  align-items: center;
+  gap: 2.5rem;
+}
+.kicker {
+  color: var(--green);
+  font-size: .66rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  color: var(--green-2);
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.09em;
+  text-transform: lowercase;
+  text-shadow: 0 0 34px rgba(0,255,102,.45), 0 0 120px rgba(0,255,102,.2);
+}
+.hero h1 span { display: block; color: var(--green-3); }
+.hero-copy p {
+  margin-top: 1.25rem;
+  max-width: 690px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: clamp(.86rem, 1.4vw, 1.04rem);
+}
+.hero-actions { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: .65rem; }
+.hero-stats {
+  margin-top: 1.3rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(90px, 1fr));
+  gap: .7rem;
+  max-width: 660px;
+}
+.hero-stat {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(0,0,0,.36);
+  padding: .85rem;
+  box-shadow: inset 0 0 20px rgba(0,255,102,.04);
+}
+.hero-stat strong { display: block; color: var(--green); font-size: 1.35rem; }
+.hero-stat span { display: block; color: var(--muted); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; margin-top: .1rem; }
+
+.buddha-stage {
+  justify-self: center;
+  width: min(460px, 90vw);
+  aspect-ratio: .9;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 44px;
+  background:
+    radial-gradient(circle at center, rgba(0,255,102,.14), transparent 58%),
+    linear-gradient(180deg, rgba(0,255,102,.08), rgba(0,0,0,.25)),
+    rgba(0,0,0,.56);
+  box-shadow: var(--shadow), inset 0 0 72px rgba(0,255,102,.07);
+  overflow: hidden;
+}
+.buddha-stage::before {
+  content: "";
+  position: absolute;
+  width: 128%; height: 128%;
+  background: conic-gradient(from 0deg, transparent, rgba(0,255,102,.38), transparent, rgba(56,189,248,.18), transparent);
+  animation: haloSpin 18s linear infinite;
+  opacity: .32;
+}
+@keyframes haloSpin { to { transform: rotate(360deg); } }
+.meditating-buddha {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: clamp(11px, 2vw, 17px);
+  line-height: 1.05;
+  white-space: pre;
+  text-align: center;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 14px var(--green),
+    0 0 38px rgba(0,255,102,.72);
+  transform: translateY(6px);
+}
+.buddha-eye {
+  color: var(--green);
+  animation: eyePulse 1.35s infinite alternate;
+  text-shadow: 0 0 9px var(--green), 0 0 24px var(--green), 0 0 52px var(--green);
+}
+@keyframes eyePulse { from { opacity: .44; filter: brightness(.85); } to { opacity: 1; filter: brightness(2); } }
+.glyph-panel {
+  position: absolute;
+  left: 1rem; right: 1rem; bottom: 1rem;
+  height: 82px;
+  padding: .65rem;
+  border: 1px solid rgba(0,255,102,.13);
+  border-radius: 18px;
+  background: rgba(0,0,0,.46);
+  overflow: hidden;
+  text-align: left;
+  color: var(--green);
+  font-size: .58rem;
+  line-height: 1.4;
+  opacity: .84;
+}
+.glyph-line { white-space: nowrap; opacity: .7; }
+
+.brand-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: .8rem 0;
+  overflow: hidden;
+  background: rgba(0,0,0,.52);
+}
+.brand-marquee {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  color: var(--green);
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  animation: marquee 28s linear infinite;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.info-section {
+  padding: clamp(1.2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.info-card {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(0,0,0,.45);
+  padding: 1.2rem;
+  min-height: 210px;
+  box-shadow: inset 0 0 34px rgba(0,255,102,.03);
+}
+.info-card h3 { color: var(--green-2); font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .85rem; }
+.info-card p { color: var(--muted); font-size: .8rem; line-height: 1.8; }
+
+/* APP */
+#app {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  background: #000;
+}
+#app.active { display: flex; }
+.app-header {
+  min-height: 70px;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0,0,0,.86);
+  backdrop-filter: blur(16px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.status-row { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; justify-content: flex-end; }
+.status {
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  padding: .35rem .72rem;
+  color: var(--muted);
+  font-size: .62rem;
+  white-space: nowrap;
+}
+.status.nirvana { border-color: var(--green); color: var(--green); }
+.tabs {
+  min-height: 48px;
+  display: flex;
+  gap: .35rem;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0,0,0,.78);
+  overflow-x: auto;
+}
+.tab { border-radius: 0; border: 0; border-bottom: 2px solid transparent; background: transparent; padding: .82rem .9rem; }
+.tab.active { color: var(--green-2); border-bottom-color: var(--green); box-shadow: none; transform: none; }
+.app-body { position: relative; flex: 1; min-height: 0; }
+.view { position: absolute; inset: 0; display: none; overflow: hidden; }
+.view.active { display: flex; }
+
+/* FEED TAB - BRAND SITE */
+#feedView { background: #000; }
+.brand-feed-shell {
+  width: 100%; height: 100%; overflow-y: auto;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,255,102,.13), transparent 34%),
+    radial-gradient(circle at 85% 15%, rgba(56,189,248,.07), transparent 32%),
+    linear-gradient(180deg, #000, #020807 42%, #000);
+}
+.feed-hero {
+  min-height: 360px;
+  padding: clamp(1.2rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(250px, .8fr);
+  gap: 2rem;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.section-kicker { color: var(--green); font-size: .64rem; letter-spacing: .28em; text-transform: uppercase; margin-bottom: .75rem; }
+.feed-hero h2, .archive-hero h2 {
+  color: var(--green-2);
+  font-size: clamp(2.1rem, 8vw, 5.8rem);
+  line-height: .88;
+  letter-spacing: -.08em;
+  text-transform: lowercase;
+  text-shadow: 0 0 30px rgba(0,255,102,.45), 0 0 90px rgba(0,255,102,.18);
+}
+.feed-hero p, .archive-hero p { margin-top: 1rem; color: var(--muted); line-height: 1.8; max-width: 660px; font-size: .92rem; }
+.feed-hero-stats { margin-top: 1.25rem; display: flex; gap: .7rem; flex-wrap: wrap; }
+.feed-hero-stats div, .archive-stat {
+  min-width: 118px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(0,0,0,.4);
+  padding: .85rem;
+  box-shadow: inset 0 0 24px rgba(0,255,102,.035);
+}
+.feed-hero-stats strong, .archive-stat span { display: block; color: var(--green); font-size: 1.45rem; }
+.feed-hero-stats span, .archive-stat small { color: var(--muted); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; }
+.feed-brand-card {
+  position: relative;
+  width: min(330px, 76vw);
+  aspect-ratio: 1;
+  justify-self: center;
+  border-radius: 36px;
+  border: 1px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(0,255,102,.12), transparent 62%), rgba(0,0,0,.55);
+  box-shadow: var(--shadow), inset 0 0 58px rgba(0,255,102,.08);
+  overflow: hidden;
+}
+.feed-brand-card img { width: 74%; height: 74%; border-radius: 30px; object-fit: cover; position: relative; z-index: 2; filter: contrast(1.1) grayscale(.15); }
+.feed-brand-card::before { content: ""; position: absolute; width: 130%; height: 130%; background: conic-gradient(transparent, rgba(0,255,102,.38), transparent, rgba(56,189,248,.16), transparent); animation: haloSpin 16s linear infinite; opacity: .34; }
+.feed-reel { height: calc(100vh - 118px); overflow-y: auto; scroll-snap-type: y mandatory; }
+.feed-reel-card {
+  min-height: 100%; height: 100%; scroll-snap-align: start;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  align-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid rgba(0,255,102,.14);
+  overflow: hidden;
+}
+.feed-reel-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(0,255,102,.12), transparent 48%), linear-gradient(180deg, transparent, rgba(0,0,0,.74)); pointer-events: none; }
+.feed-display {
+  position: relative; z-index: 2;
+  width: min(520px, 86vw);
+  max-height: 72vh;
+  justify-self: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 32px;
+  background: rgba(0,0,0,.58);
+  box-shadow: 0 0 36px rgba(0,255,102,.26), 0 0 100px rgba(0,255,102,.09);
+  overflow: hidden;
+}
+.feed-display img, .feed-display video { width: 100%; max-height: 72vh; display: block; object-fit: cover; }
+.feed-text-display { min-height: 480px; padding: 2rem; display: grid; place-items: center; text-align: center; line-height: 1.75; font-size: clamp(1rem, 2vw, 1.35rem); }
+.feed-caption { position: absolute; left: clamp(1rem, 4vw, 3rem); bottom: clamp(1rem, 4vw, 3rem); right: 112px; z-index: 4; }
+.feed-caption strong { color: var(--green-2); font-size: .84rem; }
+.feed-caption p { margin-top: .45rem; color: var(--text); font-size: .86rem; line-height: 1.6; max-width: 720px; white-space: pre-wrap; }
+.feed-actions { position: relative; z-index: 5; justify-self: end; display: flex; flex-direction: column; gap: .7rem; }
+.feed-action { width: 58px; height: 58px; border-radius: 50%; padding: 0; display: grid; place-items: center; color: var(--green); font-size: .58rem; }
+
+/* ARCHIVE TAB */
+#archiveView { background: #000; }
+.archive-brand-shell {
+  width: 100%; height: 100%; overflow-y: auto;
+  padding: clamp(1rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,255,102,.14), transparent 34%),
+    linear-gradient(180deg, #000, #020807 56%, #000);
+}
+.archive-hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: radial-gradient(circle at top left, rgba(0,255,102,.13), transparent 42%), rgba(0,0,0,.43);
+  box-shadow: var(--shadow);
+}
+.archive-mark-wrap { width: 128px; height: 128px; border-radius: 30px; border: 1px solid var(--line-strong); background: #000; display: grid; place-items: center; overflow: hidden; box-shadow: 0 0 34px rgba(0,255,102,.2); }
+.archive-mark { width: 100%; height: 100%; object-fit: cover; }
+.archive-system-card {
+  min-width: 170px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(0,0,0,.46);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.system-orb { width: 18px; height: 18px; border-radius: 50%; background: var(--green); box-shadow: 0 0 14px var(--green), 0 0 34px rgba(0,255,102,.6); animation: orbPulse 1.6s infinite alternate; }
+@keyframes orbPulse { from { opacity: .35; transform: scale(.9); } to { opacity: 1; transform: scale(1.1); } }
+.archive-system-card span { display: block; color: var(--muted); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; }
+.archive-system-card strong { display: block; color: var(--green-2); font-size: .78rem; margin-top: .2rem; }
+.archive-controls { margin-top: 1rem; display: flex; gap: .55rem; overflow-x: auto; padding-bottom: .25rem; }
+.archive-filter { flex: 0 0 auto; color: var(--muted); }
+.archive-filter.active { color: var(--green); border-color: var(--line-strong); box-shadow: 0 0 18px rgba(0,255,102,.16); }
+.archive-stat-row { margin-top: 1rem; display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: .75rem; }
+.archive-layout { margin-top: 1rem; display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 1rem; min-height: 520px; }
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .9rem; align-content: start; }
+.archive-piece {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(0,255,102,.045), transparent), rgba(0,0,0,.48);
+  overflow: hidden;
+  transition: .22s ease;
+  cursor: pointer;
+}
+.archive-piece:hover { transform: translateY(-4px); border-color: var(--green); box-shadow: 0 0 30px rgba(0,255,102,.18); }
+.archive-piece-thumb { aspect-ratio: .85; background: radial-gradient(circle, rgba(0,255,102,.14), transparent 60%), #020807; display: grid; place-items: center; overflow: hidden; }
+.archive-piece-thumb img, .archive-piece-thumb video { width: 100%; height: 100%; object-fit: cover; }
+.archive-piece-fallback { font-size: 2.5rem; color: var(--green); text-shadow: 0 0 26px var(--green); }
+.archive-piece-meta { padding: .85rem; }
+.archive-piece-name { color: var(--text); font-size: .76rem; line-height: 1.45; min-height: 2.2rem; }
+.archive-piece-footer { margin-top: .65rem; display: flex; justify-content: space-between; align-items: center; }
+.archive-piece-tag { border: 1px solid rgba(0,255,102,.28); border-radius: var(--pill); color: var(--green); padding: .18rem .52rem; font-size: .56rem; letter-spacing: .08em; text-transform: uppercase; }
+.archive-piece-signal { color: var(--muted); font-size: .58rem; }
+.archive-inspector {
+  position: sticky; top: 1rem;
+  min-height: 520px;
+  height: fit-content;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: radial-gradient(circle at top, rgba(0,255,102,.13), transparent 42%), rgba(0,0,0,.52);
+  padding: 1rem;
+  box-shadow: inset 0 0 34px rgba(0,255,102,.05);
+}
+.inspector-empty { min-height: 480px; display: grid; place-items: center; text-align: center; color: var(--muted); }
+.inspector-symbol { color: var(--green); font-size: 2.5rem; text-shadow: 0 0 24px var(--green); margin-bottom: .5rem; }
+.inspector-media { border: 1px solid rgba(0,255,102,.22); border-radius: 22px; overflow: hidden; background: #000; margin-bottom: 1rem; }
+.inspector-media img, .inspector-media video { width: 100%; display: block; max-height: 320px; object-fit: cover; }
+.inspector-title { color: var(--green-2); font-size: 1rem; line-height: 1.5; margin-bottom: .5rem; }
+.inspector-meta { color: var(--muted); font-size: .68rem; line-height: 1.7; }
+.inspector-actions { margin-top: 1rem; display: grid; gap: .5rem; }
+.inspector-btn { width: 100%; color: var(--green); }
+.brand-empty { grid-column: 1 / -1; min-height: 360px; display: grid; place-items: center; text-align: center; color: var(--muted); border: 1px dashed rgba(0,255,102,.22); border-radius: 28px; background: rgba(0,0,0,.28); }
+.brand-empty-icon { color: var(--green); font-size: 2.8rem; text-shadow: 0 0 24px var(--green); margin-bottom: .5rem; }
+
+/* ENGINE TAB */
+#engineView { padding: 1rem; gap: 1rem; background: #000; grid-template-columns: 330px minmax(0, 1fr); }
+#engineView.active { display: grid; }
+.engine-panel, .engine-output {
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--panel-2);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  min-height: 0;
+  overflow: hidden;
+}
+.engine-panel { display: flex; flex-direction: column; gap: .85rem; }
+.panel-title { color: var(--green-2); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; }
+.metric { display: grid; gap: .3rem; }
+.metric-top { display: flex; justify-content: space-between; color: var(--muted); font-size: .66rem; }
+.metric-top strong { color: var(--green-2); }
+.bar { height: 4px; border-radius: 999px; background: rgba(0,255,102,.08); overflow: hidden; }
+.bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--green), var(--green-2)); transform-origin: left; transform: scaleX(.03); transition: transform .35s ease; }
+.frequency-control { display: grid; gap: .4rem; color: var(--muted); font-size: .65rem; }
+.frequency-control input { width: 100%; accent-color: var(--green); }
+.engine-buttons { display: flex; flex-wrap: wrap; gap: .45rem; }
+.engine-output { display: grid; grid-template-rows: auto 1fr; gap: .75rem; }
+.whale-sentence { min-height: 108px; border: 1px solid var(--line); border-radius: 22px; display: grid; place-items: center; text-align: center; padding: 1rem; color: var(--green-2); font-size: clamp(1rem, 2vw, 1.55rem); line-height: 1.6; text-shadow: 0 0 20px rgba(0,255,102,.35); }
+.log { min-height: 0; overflow-y: auto; border: 1px solid var(--line); border-radius: 22px; padding: .8rem; background: rgba(0,0,0,.38); color: var(--muted); font-size: .64rem; line-height: 1.55; }
+.log-line.green { color: var(--green); }
+.log-line.warn { color: var(--warn); }
+.log-line.error { color: var(--danger); }
+
+/* COMPOSER */
+.composer-dock {
+  position: fixed;
+  z-index: 80;
+  left: 50%; bottom: 1rem;
+  transform: translateX(-50%);
+  width: min(780px, 94vw);
+  border: 1px solid var(--line-strong);
+  border-radius: 26px;
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  padding: .82rem;
+  display: none;
+}
+.composer-dock.active { display: block; }
+textarea {
+  width: 100%; min-height: 72px; resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(6,18,28,.78);
+  color: var(--text);
+  padding: .75rem;
+  outline: none;
+}
+textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,255,102,.14); }
+.composer-row { margin-top: .6rem; display: flex; justify-content: space-between; gap: .55rem; flex-wrap: wrap; }
+.chip-row { display: flex; flex-wrap: wrap; gap: .45rem; }
+.hidden-input { display: none; }
+.file-preview { margin-top: .4rem; color: var(--muted); font-size: .64rem; }
+
+@media (max-width: 980px) {
+  .hero, .feed-hero, .archive-hero { grid-template-columns: 1fr; }
+  .hero-stats, .archive-stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .info-section { grid-template-columns: 1fr; }
+  .archive-layout { grid-template-columns: 1fr; }
+  .archive-inspector { position: relative; min-height: 320px; }
+  #engineView.active { grid-template-columns: 1fr; }
+  .feed-reel-card { grid-template-columns: 1fr; }
+  .feed-actions { position: absolute; right: 1rem; bottom: 1rem; }
+  .feed-caption { right: 5.2rem; }
+}
+@media (max-width: 720px) {
+  body { overflow: hidden; }
+  .site-nav { align-items: flex-start; padding: .85rem; flex-direction: column; }
+  .nav-links { justify-content: flex-start; }
+  .hero { padding-top: 2rem; }
+  .hero h1 { font-size: clamp(2.9rem, 18vw, 5rem); }
+  .buddha-stage { width: min(360px, 92vw); }
+  .meditating-buddha { font-size: clamp(8px, 2.5vw, 12px); }
+  .glyph-panel { height: 70px; }
+  .status { display: none; }
+  .archive-mark-wrap { width: 92px; height: 92px; }
+  .archive-stat-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<a href="../" class="abz-home" style="position:fixed;top:14px;left:14px;z-index:2000000;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#00ff66;background:rgba(0,0,0,.75);border:1px solid rgba(0,255,102,.45);border-radius:999px;padding:7px 13px;text-decoration:none;backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)">&#8592; a bit bizaare</a>
+<div id="matrix" aria-hidden="true"></div>
+<div class="page-haze" aria-hidden="true"></div>
+
+<main id="landing">
+  <nav class="site-nav">
+    <div class="logo-lockup">
+      <div class="logo-mark"><img src="../assets/img/buddha.png" alt="" onerror="this.remove(); this.parentNode.textContent='☸';" /></div>
+      <div class="logo-text">
+        <strong>Q@W@RD .BUDDHA</strong>
+        <span>final archive system</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="btn" data-open="feed">feed</button>
+      <button class="btn" data-open="archive">archive</button>
+      <button class="btn" data-open="engine">whale ai</button>
+      <button class="btn primary" data-open="upload">upload</button>
+      <button class="btn" id="fenixBtn">fenix</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">advanced limbic brand system</div>
+      <h1>final<span>.buddha</span></h1>
+      <p>
+        A living clothing archive, signal feed, and whale-intelligence interface for Q@W@RD.
+        Upload garments, sounds, videos, and fragments. The system indexes them through harmonic
+        resonance, limbic pressure, frequency, and loop depth while keeping the interface stable.
+      </p>
+      <div class="hero-actions">
+        <button class="btn primary" data-open="archive">enter archive</button>
+        <button class="btn" data-open="feed">view feed</button>
+        <button class="btn" data-open="engine">run whale ai</button>
+        <button class="btn" data-loop>enter loop</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="homeItems">0</strong><span>items</span></div>
+        <div class="hero-stat"><strong id="homeHarmony">0.00</strong><span>harmony</span></div>
+        <div class="hero-stat"><strong id="homeDepth">0m</strong><span>depth</span></div>
+        <div class="hero-stat"><strong id="homeFreq">432</strong><span>hz</span></div>
+      </div>
+    </div>
+
+    <div class="buddha-stage" aria-label="Meditating Buddha animation" role="img">
+<pre class="meditating-buddha">
+           _ooooo_
+        .o888888888o.
+       8888  <span class="buddha-eye">●</span>  <span class="buddha-eye">●</span> 8888
+      88       _       88
+      88     \___/     88
+       88.           .88
+        '88oo_____oo88'
+            /|   |\
+           / |   | \
+        __/  |___|  \__
+      .'   _/     \_   '.
+     /   .'  .---.  '.   \
+    /___/   (     )   \___\
+       /__   \___/   __\
+      (___)   ___   (___)
+        \____/   \____/
+          _/       \_
+        _/___________\_
+       /_______________\
+</pre>
+      <div class="glyph-panel" id="glyphPanel" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="brand-strip" aria-hidden="true">
+    <div class="brand-marquee">
+      <span>limbic resonance</span><span>harmonic closet</span><span>safe infinity</span><span>debugCrash protected</span><span>whale signal feed</span><span>final .buddha</span>
+      <span>limbic resonance</span><span>harmonic closet</span><span>safe infinity</span><span>debugCrash protected</span><span>whale signal feed</span><span>final .buddha</span>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <article class="info-card"><h3>Archive</h3><p>A polished clothing grid for fits, garments, prototypes, images, sounds, and relics. Each item receives a signal score, category, and whale-state inspection panel.</p></article>
+    <article class="info-card"><h3>Feed</h3><p>A vertical brand-feed experience built like a real visual website. Scroll through uploads and use meaning, resonate, loop, and save actions to drive the whale engine.</p></article>
+    <article class="info-card"><h3>Whale AI</h3><p>A user-friendly symbolic engine for limbic pressure, harmonic resonance, frequency, awareness, and safe infinite loops. It thinks like a whale but outputs like an interface.</p></article>
+  </section>
+</main>
+
+<section id="app" aria-label="Q@W@RD application">
+  <header class="app-header">
+    <div class="logo-lockup">
+      <div class="logo-mark"><img src="../assets/img/buddha.png" alt="" onerror="this.remove(); this.parentNode.textContent='☸';" /></div>
+      <div class="logo-text">
+        <strong>Q@W@RD .BUDDHA</strong>
+        <span>brand archive interface</span>
+      </div>
+    </div>
+    <div class="status-row">
+      <div class="status" id="systemStatus">system: stable</div>
+      <div class="status" id="monkStatus">monk: observing</div>
+      <button class="btn" id="closeApp">close</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="feed">feed</button>
+    <button class="tab" data-tab="archive">archive</button>
+    <button class="tab" data-tab="engine">whale ai</button>
+  </nav>
+
+  <div class="app-body">
+    <div id="feedView" class="view active">
+      <div class="brand-feed-shell">
+        <section class="feed-hero">
+          <div>
+            <div class="section-kicker">live signal feed</div>
+            <h2>whale motion archive</h2>
+            <p>A vertical stream of garments, fragments, sounds, and field signals. Every scroll updates the whale engine.</p>
+            <div class="feed-hero-stats">
+              <div><strong id="feedItemCount">0</strong><span>signals</span></div>
+              <div><strong id="feedHarmony">0.00</strong><span>harmony</span></div>
+              <div><strong id="feedDepth">0m</strong><span>depth</span></div>
+            </div>
+          </div>
+          <div class="feed-brand-card"><img src="../assets/img/buddha.png" alt="Q@W@RD Buddha mark" onerror="this.style.display='none';" /></div>
+        </section>
+        <section class="feed-reel" id="tiktokFeed"></section>
+      </div>
+    </div>
+
+    <div id="archiveView" class="view">
+      <div class="archive-brand-shell">
+        <section class="archive-hero">
+          <div class="archive-mark-wrap"><img src="../assets/img/buddha.png" alt="A Bit Bizaaare archive mark" class="archive-mark" onerror="this.style.display='none'; this.parentNode.textContent='☸';" /></div>
+          <div>
+            <div class="section-kicker">clothing archive</div>
+            <h2>a bit bizaaare</h2>
+            <p>A ritual closet for fits, garments, prototypes, samples, and digital relics. Every item is indexed by memory, frequency, and whale-state.</p>
+          </div>
+          <div class="archive-system-card">
+            <div class="system-orb"></div>
+            <div><span>archive state</span><strong id="archiveSystemState">listening</strong></div>
+          </div>
+        </section>
+
+        <section class="archive-controls">
+          <button class="archive-filter active" data-filter="all">all</button>
+          <button class="archive-filter" data-filter="hoodie">hoodies</button>
+          <button class="archive-filter" data-filter="shirt">shirts</button>
+          <button class="archive-filter" data-filter="pants">pants</button>
+          <button class="archive-filter" data-filter="jacket">jackets</button>
+          <button class="archive-filter" data-filter="shoes">shoes</button>
+          <button class="archive-filter" data-filter="fit">fits</button>
+          <button class="archive-filter" data-filter="archive">relics</button>
+        </section>
+
+        <section class="archive-stat-row">
+          <div class="archive-stat"><span id="archivePostCount">0</span><small>items</small></div>
+          <div class="archive-stat"><span id="archiveLoopCount">0</span><small>loops</small></div>
+          <div class="archive-stat"><span id="archiveAwareness">0.01</span><small>awareness</small></div>
+          <div class="archive-stat"><span id="archiveResonance">0.00</span><small>resonance</small></div>
+        </section>
+
+        <section class="archive-layout">
+          <div class="archive-grid" id="closetGrid"></div>
+          <aside class="archive-inspector" id="archiveInspector">
+            <div class="inspector-empty">
+              <div><div class="inspector-symbol">☸</div><p>Select an archive item.</p><small>The whale will inspect its signal.</small></div>
+            </div>
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <div id="engineView" class="view">
+      <aside class="engine-panel">
+        <div class="panel-title">whale state</div>
+        <div class="metric"><div class="metric-top"><span>limbic pressure</span><strong id="limbicLabel">0.00</strong></div><div class="bar"><span id="limbicBar"></span></div></div>
+        <div class="metric"><div class="metric-top"><span>harmonic resonance</span><strong id="harmonyLabel">0.00</strong></div><div class="bar"><span id="harmonyBar"></span></div></div>
+        <div class="metric"><div class="metric-top"><span>frequency</span><strong id="frequencyLabel">432 Hz</strong></div><div class="bar"><span id="frequencyBar"></span></div></div>
+        <div class="metric"><div class="metric-top"><span>ego / awareness</span><strong id="buddhaLabel">1.00 / 0.01</strong></div><div class="bar"><span id="buddhaBar"></span></div></div>
+        <div class="metric"><div class="metric-top"><span>depth</span><strong id="depthLabel">0 m</strong></div><div class="bar"><span id="depthBar"></span></div></div>
+        <label class="frequency-control">frequency control<input id="frequencyInput" type="range" min="111" max="963" step="1" value="432" /></label>
+        <div class="engine-buttons">
+          <button class="engine-btn" id="meaningBtn">meaning</button>
+          <button class="engine-btn" id="falloutBtn">fallout</button>
+          <button class="engine-btn" id="resonateBtn">resonate</button>
+          <button class="engine-btn" id="infiniteBtn">infinite</button>
+          <button class="engine-btn" id="debugBtn">debugCrash</button>
+        </div>
+      </aside>
+      <section class="engine-output">
+        <div class="whale-sentence" id="whaleSentence">The whale is listening beneath the interface.</div>
+        <div class="log" id="log"></div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="composer-dock" id="composerDock">
+  <textarea id="composerInput" placeholder="Upload a fit, describe a piece, or drop a fragment into the archive..."></textarea>
+  <div class="composer-row">
+    <div class="chip-row">
+      <label class="chip">upload file<input class="hidden-input" id="fileInput" type="file" multiple /></label>
+      <button class="chip" id="clearArchiveBtn">clear archive</button>
+    </div>
+    <button class="btn primary" id="postBtn">post</button>
+  </div>
+  <div class="file-preview" id="filePreview"></div>
+</section>
+
+<audio id="fenixAudio" src="../assets/audio/fenix.mp3" preload="auto"></audio>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = id => document.getElementById(id);
+  const STORE_KEY = "qaward_final_buddha_v1";
+  const RAIN_MAX = 140;
+  const LOG_MAX = 100;
+  const GLYPH_MAX = 9;
+
+  const matrix = $("matrix");
+  const glyphPanel = $("glyphPanel");
+  const app = $("app");
+  const composerDock = $("composerDock");
+  const composerInput = $("composerInput");
+  const fileInput = $("fileInput");
+  const filePreview = $("filePreview");
+  const postBtn = $("postBtn");
+  const tiktokFeed = $("tiktokFeed");
+  const closetGrid = $("closetGrid");
+  const log = $("log");
+  const whaleSentence = $("whaleSentence");
+  const monkStatus = $("monkStatus");
+  const systemStatus = $("systemStatus");
+  const fenixAudio = $("fenixAudio");
+  const fenixBtn = $("fenixBtn");
+  const frequencyInput = $("frequencyInput");
+
+  let posts = loadPosts();
+  let selectedFiles = [];
+  let fenixPlaying = false;
+  let infiniteRunning = false;
+  let infiniteTimer = null;
+  let activeTab = "feed";
+  let activeArchiveFilter = "all";
+
+  const whale = { loop: 0, limbic: 0, harmony: 0, frequency: 432, depth: 0, pressure: 0, phase: "surface shimmer", song: "submerged", debug: 0 };
+  const monk = { ego: 1, awareness: 0.01, nirvana: false };
+
+  const rand = arr => arr[Math.floor(Math.random() * arr.length)];
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const randF = (a, b) => a + Math.random() * (b - a);
+  const glyphWords = ["limbic", "harmony", "frequency", "infinite", "debugCrash", "whale", "archive", "buddha"];
+
+  function loadPosts() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { return []; } }
+  function savePosts() { try { localStorage.setItem(STORE_KEY, JSON.stringify(posts)); } catch { posts.shift(); localStorage.setItem(STORE_KEY, JSON.stringify(posts)); logLine("storage pressure detected — oldest fragment released", "warn"); } }
+
+  function spawnRain() {
+    if (matrix.children.length >= RAIN_MAX) return;
+    const s = document.createElement("span");
+    s.textContent = "$";
+    s.style.left = `${Math.random() * 100}vw`;
+    s.style.fontSize = `${12 + Math.random() * 22}px`;
+    s.style.animationDuration = `${randF(2.5, 8)}s`;
+    s.style.opacity = `${0.3 + Math.random() * 0.7}`;
+    matrix.appendChild(s);
+    s.addEventListener("animationend", () => s.remove(), { once: true });
+  }
+  setInterval(spawnRain, 22);
+
+  function pushGlyph() {
+    const word = rand(glyphWords);
+    const line = Array.from({ length: 38 }, () => Math.random() > 0.88 ? word[Math.floor(Math.random() * word.length)] : "$" ).join("");
+    const d = document.createElement("div");
+    d.className = "glyph-line";
+    d.textContent = line;
+    glyphPanel.appendChild(d);
+    while (glyphPanel.children.length > GLYPH_MAX) glyphPanel.firstChild.remove();
+  }
+  setInterval(pushGlyph, 280);
+
+  function logLine(text, type = "") {
+    if (!log) return;
+    const d = document.createElement("div");
+    d.className = "log-line" + (type ? " " + type : "");
+    d.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+    log.appendChild(d);
+    while (log.children.length > LOG_MAX) log.firstChild.remove();
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function whaleAI(reason = "observe", force = 1) {
+    whale.loop += 1;
+    const wave = Math.sin(whale.loop / 4);
+    const freqNorm = clamp((whale.frequency - 111) / (963 - 111), 0, 1);
+    whale.limbic = clamp(whale.limbic + randF(0.04, 0.16) * force + Math.abs(wave) * 0.035, 0, 12);
+    whale.depth = clamp(whale.loop * 37 + Math.sin(whale.loop / 3) * 180, 0, 5000);
+    whale.pressure = clamp(whale.depth / 5000 + whale.limbic / 12, 0, 2);
+    whale.harmony = clamp(0.34 * freqNorm + 0.28 * (1 - monk.ego) + 0.24 * monk.awareness + 0.14 * Math.abs(Math.sin(whale.loop / 7)), 0, 1);
+    whale.phase = whale.depth < 400 ? "surface shimmer" : whale.depth < 1400 ? "blue descent" : whale.depth < 3000 ? "deep pelagic" : "blackwater choir";
+    whale.song = whale.harmony < .25 ? "broken ping" : whale.harmony < .5 ? "low migration" : whale.harmony < .75 ? "harmonic breach" : "cathedral whale-song";
+    buddhaStep();
+    renderEngine();
+    renderStats();
+    const output = humanWhaleOutput(reason);
+    if (whaleSentence) whaleSentence.textContent = output.user;
+    logLine(output.log, output.type);
+  }
+
+  function buddhaStep() {
+    if (monk.nirvana) return;
+    monk.awareness = clamp(monk.awareness + (1 - monk.ego) * .045 + whale.harmony * .006 + .001, 0, 1);
+    monk.ego = clamp(monk.ego - monk.awareness * .035 - whale.harmony * .004, 0, 1);
+    if (monk.ego <= .01 && monk.awareness >= .99) {
+      monk.nirvana = true;
+      monkStatus.className = "status nirvana";
+      monkStatus.textContent = "monk: nirvana";
+      logLine("loop recognized itself — nirvana reached", "green");
+    }
+  }
+
+  function humanWhaleOutput(reason) {
+    return rand([
+      { user: `The whale reads this as ${whale.phase}. The archive wants cleaner signal and stronger identity.`, log: `whaleAI(${reason}) :: phase=${whale.phase} harmony=${whale.harmony.toFixed(2)}`, type: "green" },
+      { user: `Frequency ${whale.frequency} Hz is shaping the loop. The system feels ${whale.song}.`, log: `harmonic resonance stabilized at ${whale.frequency} Hz`, type: "" },
+      { user: `Limbic pressure is ${whale.limbic.toFixed(2)}. The page remains stable. No crash detected.`, log: `limbic=${whale.limbic.toFixed(2)} pressure=${whale.pressure.toFixed(2)} debug=${whale.debug}`, type: whale.pressure > 1.4 ? "warn" : "" },
+      { user: "The whale does not think in words. It returns: garment, rhythm, depth, archive, signal.", log: "translated whale-state into user-safe output", type: "green" }
+    ]);
+  }
+
+  function renderStats() {
+    const set = (id, value) => { const el = $(id); if (el) el.textContent = value; };
+    set("homeItems", posts.length);
+    set("homeHarmony", whale.harmony.toFixed(2));
+    set("homeDepth", `${whale.depth.toFixed(0)}m`);
+    set("homeFreq", whale.frequency);
+    set("feedItemCount", posts.length);
+    set("feedHarmony", whale.harmony.toFixed(2));
+    set("feedDepth", `${whale.depth.toFixed(0)}m`);
+    set("archivePostCount", posts.length);
+    set("archiveLoopCount", whale.loop);
+    set("archiveAwareness", monk.awareness.toFixed(2));
+    set("archiveResonance", whale.harmony.toFixed(2));
+  }
+
+  function renderEngine() {
+    const set = (id, value) => { const el = $(id); if (el) el.textContent = value; };
+    const bar = (id, value) => { const el = $(id); if (el) el.style.transform = `scaleX(${clamp(value, .03, 1)})`; };
+    set("limbicLabel", whale.limbic.toFixed(2));
+    set("harmonyLabel", whale.harmony.toFixed(2));
+    set("frequencyLabel", `${whale.frequency} Hz`);
+    set("buddhaLabel", `${monk.ego.toFixed(2)} / ${monk.awareness.toFixed(2)}`);
+    set("depthLabel", `${whale.depth.toFixed(0)} m`);
+    bar("limbicBar", whale.limbic / 12);
+    bar("harmonyBar", whale.harmony);
+    bar("frequencyBar", (whale.frequency - 111) / 852);
+    bar("buddhaBar", monk.awareness);
+    bar("depthBar", whale.depth / 5000);
+    if (!monk.nirvana) monkStatus.textContent = `monk: ego ${monk.ego.toFixed(2)} · awareness ${monk.awareness.toFixed(2)}`;
+  }
+
+  function debugCrash() {
+    try {
+      whale.debug += 1;
+      const simulatedProblem = { recursion: "blocked", memoryLeak: "capped", infiniteLoop: infiniteRunning ? "managed interval" : "inactive", localStorage: "guarded", domGrowth: "bounded" };
+      console.table(simulatedProblem);
+      systemStatus.textContent = "system: debug passed";
+      systemStatus.style.color = "#00ff66";
+      logLine("debugCrash() ran safely — no infinite recursion permitted", "green");
+      whaleSentence.textContent = "debugCrash complete. The whale found pressure, not failure.";
+    } catch (error) {
+      systemStatus.textContent = "system: recovered";
+      logLine(`debugCrash recovered: ${error.message}`, "error");
+    }
+  }
+
+  function toggleInfinite() {
+    infiniteRunning = !infiniteRunning;
+    const btn = $("infiniteBtn");
+    if (infiniteRunning) {
+      btn.textContent = "stop";
+      systemStatus.textContent = "system: infinite-safe";
+      infiniteTimer = setInterval(() => whaleAI("infinite-safe", .4), 1200);
+      logLine("infinite mode started as bounded interval", "green");
+    } else {
+      btn.textContent = "infinite";
+      clearInterval(infiniteTimer);
+      infiniteTimer = null;
+      systemStatus.textContent = "system: stable";
+      logLine("infinite mode stopped", "warn");
+    }
+  }
+
+  function fileToData(file) {
+    return new Promise(resolve => {
+      const meta = { name: file.name, type: file.type || "unknown", size: file.size, dataURL: "" };
+      if (file.size > 2_000_000) { resolve(meta); return; }
+      const reader = new FileReader();
+      reader.onload = () => { meta.dataURL = String(reader.result); resolve(meta); };
+      reader.onerror = () => resolve(meta);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function addPost() {
+    const text = composerInput.value.trim();
+    if (!text && selectedFiles.length === 0) return;
+    postBtn.textContent = "...";
+    postBtn.disabled = true;
+    const files = await Promise.all(selectedFiles.map(fileToData));
+    posts.push({ id: crypto.randomUUID(), text, files, createdAt: Date.now(), author: "anonymous whale" });
+    savePosts();
+    composerInput.value = "";
+    selectedFiles = [];
+    fileInput.value = "";
+    filePreview.textContent = "";
+    postBtn.textContent = "post";
+    postBtn.disabled = false;
+    whaleAI("new archive item", 1.2);
+    renderFeed();
+    renderCloset();
+  }
+
+  function getPrimaryFile(post) { return (post.files || [])[0] || null; }
+  function getClothingTag(post) {
+    const text = `${post.text || ""} ${(post.files || []).map(f => f.name).join(" ")}`.toLowerCase();
+    if (text.includes("hoodie")) return "hoodie";
+    if (text.includes("shirt") || text.includes("tee") || text.includes("t-shirt")) return "shirt";
+    if (text.includes("pants") || text.includes("jeans") || text.includes("denim")) return "pants";
+    if (text.includes("jacket") || text.includes("coat")) return "jacket";
+    if (text.includes("shoe") || text.includes("sneaker") || text.includes("boot")) return "shoes";
+    if (text.includes("hat") || text.includes("cap") || text.includes("beanie")) return "hat";
+    if (text.includes("fit") || text.includes("outfit")) return "fit";
+    return "archive";
+  }
+  function getSignalScore(post) {
+    const fileBoost = (post.files || []).length * 7;
+    const textBoost = Math.min(22, (post.text || "").length / 8);
+    const whaleBoost = whale.harmony * 20;
+    return Math.round(clamp(fileBoost + textBoost + whaleBoost + 20, 1, 99));
+  }
+
+  function renderFeed() {
+    tiktokFeed.innerHTML = "";
+    renderStats();
+    if (!posts.length) {
+      tiktokFeed.innerHTML = `<section class="feed-reel-card"><div class="feed-display feed-text-display"><div><div style="font-size:3rem;color:#00ff66;text-shadow:0 0 28px #00ff66;">☸</div><p>Feed empty.</p><p style="color:var(--muted);font-size:.8rem;margin-top:.5rem;">Upload a garment, sound, video, or fragment to create the first signal.</p></div></div></section>`;
+      return;
+    }
+    posts.slice().reverse().forEach(post => tiktokFeed.appendChild(buildBrandFeedCard(post)));
+  }
+
+  function buildBrandFeedCard(post) {
+    const section = document.createElement("section");
+    section.className = "feed-reel-card";
+    const firstFile = getPrimaryFile(post);
+    const display = document.createElement("div");
+    display.className = "feed-display";
+    if (firstFile && firstFile.dataURL && firstFile.type.startsWith("image/")) {
+      const img = document.createElement("img"); img.src = firstFile.dataURL; img.alt = firstFile.name; display.appendChild(img);
+    } else if (firstFile && firstFile.dataURL && firstFile.type.startsWith("video/")) {
+      const video = document.createElement("video"); video.src = firstFile.dataURL; video.controls = true; video.loop = true; display.appendChild(video);
+    } else if (firstFile && firstFile.dataURL && firstFile.type.startsWith("audio/")) {
+      display.classList.add("feed-text-display");
+      const wrap = document.createElement("div");
+      const label = document.createElement("div"); label.textContent = firstFile.name; label.style.color = "#00ff66"; label.style.marginBottom = "1rem";
+      const audio = document.createElement("audio"); audio.src = firstFile.dataURL; audio.controls = true; audio.style.width = "100%";
+      wrap.appendChild(label); wrap.appendChild(audio); display.appendChild(wrap);
+    } else {
+      display.classList.add("feed-text-display"); display.textContent = post.text || "archived signal";
+    }
+    const tag = getClothingTag(post); const signal = getSignalScore(post);
+    const caption = document.createElement("div"); caption.className = "feed-caption";
+    caption.innerHTML = `<strong>@qaward.archive · ${tag} · signal ${signal}</strong><p>${escapeText(post.text || "archived fragment")}</p>`;
+    const actions = document.createElement("div"); actions.className = "feed-actions";
+    [["meaning", () => whaleAI("feed meaning", 1.4)], ["resonate", () => whaleAI("feed resonance", 1.6)], ["loop", () => whaleAI("feed loop", 1)], ["save", () => { whaleAI("signal saved", .8); switchTab("archive"); inspectArchiveItem(post); }]].forEach(([label, fn]) => {
+      const b = document.createElement("button"); b.className = "feed-action"; b.textContent = label; b.addEventListener("click", fn); actions.appendChild(b);
+    });
+    section.appendChild(display); section.appendChild(caption); section.appendChild(actions);
+    section.addEventListener("mouseenter", () => whaleAI("feed hover", .18));
+    return section;
+  }
+
+  function renderCloset() {
+    renderStats();
+    closetGrid.innerHTML = "";
+    const filtered = posts.slice().reverse().filter(post => activeArchiveFilter === "all" || getClothingTag(post) === activeArchiveFilter);
+    const state = $("archiveSystemState"); if (state) state.textContent = filtered.length ? "indexing" : "empty";
+    if (!filtered.length) {
+      closetGrid.innerHTML = `<div class="brand-empty"><div><div class="brand-empty-icon">☸</div><p>No pieces in this category yet.</p><p style="font-size:.72rem;margin-top:.35rem;">Upload a fit or choose another archive filter.</p></div></div>`;
+      return;
+    }
+    filtered.forEach(post => closetGrid.appendChild(buildArchivePiece(post)));
+  }
+
+  function buildArchivePiece(post) {
+    const item = document.createElement("article"); item.className = "archive-piece";
+    const firstFile = getPrimaryFile(post); const tag = getClothingTag(post); const signal = getSignalScore(post);
+    const thumb = document.createElement("div"); thumb.className = "archive-piece-thumb";
+    if (firstFile && firstFile.dataURL && firstFile.type.startsWith("image/")) { const img = document.createElement("img"); img.src = firstFile.dataURL; img.alt = firstFile.name; thumb.appendChild(img); }
+    else if (firstFile && firstFile.dataURL && firstFile.type.startsWith("video/")) { const video = document.createElement("video"); video.src = firstFile.dataURL; video.muted = true; video.loop = true; video.onmouseenter = () => video.play(); video.onmouseleave = () => video.pause(); thumb.appendChild(video); }
+    else { const fallback = document.createElement("div"); fallback.className = "archive-piece-fallback"; fallback.textContent = "☸"; thumb.appendChild(fallback); }
+    const meta = document.createElement("div"); meta.className = "archive-piece-meta";
+    meta.innerHTML = `<div class="archive-piece-name">${escapeText(post.text || firstFile?.name || "untitled archive piece")}</div><div class="archive-piece-footer"><span class="archive-piece-tag">${tag}</span><span class="archive-piece-signal">${signal}%</span></div>`;
+    item.appendChild(thumb); item.appendChild(meta);
+    item.addEventListener("click", () => { inspectArchiveItem(post); whaleAI("archive item inspect", 1.1); });
+    item.addEventListener("mouseenter", () => whaleAI("archive hover", .15));
+    return item;
+  }
+
+  function inspectArchiveItem(post) {
+    const inspector = $("archiveInspector"); if (!inspector) return;
+    const firstFile = getPrimaryFile(post); const tag = getClothingTag(post); const signal = getSignalScore(post);
+    inspector.innerHTML = "";
+    const media = document.createElement("div"); media.className = "inspector-media";
+    if (firstFile && firstFile.dataURL && firstFile.type.startsWith("image/")) { const img = document.createElement("img"); img.src = firstFile.dataURL; img.alt = firstFile.name; media.appendChild(img); }
+    else if (firstFile && firstFile.dataURL && firstFile.type.startsWith("video/")) { const video = document.createElement("video"); video.src = firstFile.dataURL; video.controls = true; video.loop = true; media.appendChild(video); }
+    else { media.innerHTML = `<div style="min-height:220px;display:grid;place-items:center;color:#00ff66;font-size:3rem;text-shadow:0 0 28px #00ff66;">☸</div>`; }
+    const title = document.createElement("div"); title.className = "inspector-title"; title.textContent = post.text || firstFile?.name || "untitled archive piece";
+    const meta = document.createElement("div"); meta.className = "inspector-meta";
+    meta.innerHTML = `<div>category: ${tag}</div><div>signal strength: ${signal}%</div><div>created: ${new Date(post.createdAt).toLocaleString()}</div><div>files: ${(post.files || []).length}</div><div>whale phase: ${whale.phase}</div><div>frequency: ${whale.frequency} Hz</div>`;
+    const actions = document.createElement("div"); actions.className = "inspector-actions";
+    [["run meaning sweep", () => whaleAI("inspector meaning", 1.5)], ["harmonic resonance", () => whaleAI("inspector resonance", 1.7)], ["send to feed", () => { switchTab("feed"); whaleAI("archive to feed", .9); }]].forEach(([label, fn]) => {
+      const b = document.createElement("button"); b.className = "inspector-btn"; b.textContent = label; b.addEventListener("click", fn); actions.appendChild(b);
+    });
+    inspector.appendChild(media); inspector.appendChild(title); inspector.appendChild(meta); inspector.appendChild(actions);
+  }
+
+  function switchTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll(".tab").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+    document.querySelectorAll(".view").forEach(view => view.classList.remove("active"));
+    if (tab === "feed") { $("feedView").classList.add("active"); composerDock.classList.add("active"); renderFeed(); renderStats(); }
+    if (tab === "archive") { $("archiveView").classList.add("active"); composerDock.classList.add("active"); renderCloset(); renderStats(); }
+    if (tab === "engine") { $("engineView").classList.add("active"); composerDock.classList.remove("active"); renderEngine(); }
+  }
+
+  function openApp(tab = "feed") { app.classList.add("active"); switchTab(tab); whaleAI(`open ${tab}`, .6); }
+  function closeApp() { app.classList.remove("active"); composerDock.classList.remove("active"); }
+  function toggleFenix() {
+    if (!fenixPlaying) {
+      fenixAudio.play().then(() => { fenixPlaying = true; fenixBtn.textContent = "fenix ▶"; }).catch(() => { fenixBtn.textContent = "fenix ✗"; });
+    } else {
+      fenixAudio.pause(); fenixAudio.currentTime = 0; fenixPlaying = false; fenixBtn.textContent = "fenix";
+    }
+  }
+  function escapeText(value) { return String(value).replace(/[&<>'"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#039;", '"': "&quot;" }[c])); }
+
+  document.body.addEventListener("click", event => {
+    const openBtn = event.target.closest("[data-open]");
+    const loopBtn = event.target.closest("[data-loop]");
+    if (loopBtn) location.href = "../marketplace/";
+    if (!openBtn) return;
+    const target = openBtn.dataset.open;
+    if (target === "upload") { openApp("archive"); setTimeout(() => fileInput.click(), 150); }
+    else openApp(target);
+  });
+
+  document.querySelectorAll(".tab").forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+  document.querySelectorAll(".archive-filter").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".archive-filter").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active"); activeArchiveFilter = btn.dataset.filter; whaleAI(`archive filter ${activeArchiveFilter}`, .7); renderCloset();
+  }));
+
+  $("closeApp").addEventListener("click", closeApp);
+  fenixBtn.addEventListener("click", toggleFenix);
+  fileInput.addEventListener("change", () => { selectedFiles = [...fileInput.files]; filePreview.textContent = selectedFiles.length ? selectedFiles.map(f => f.name).join(", ") : ""; whaleAI("file selected", .8); });
+  postBtn.addEventListener("click", addPost);
+  composerInput.addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) addPost(); });
+  $("clearArchiveBtn").addEventListener("click", () => { if (!confirm("Clear the clothing archive?")) return; posts = []; savePosts(); renderFeed(); renderCloset(); whaleAI("archive cleared", .7); });
+  $("meaningBtn").addEventListener("click", () => whaleAI("meaning sweep", 1.5));
+  $("falloutBtn").addEventListener("click", () => whaleAI("fallout", 2));
+  $("resonateBtn").addEventListener("click", () => whaleAI("harmonic resonance", 1.7));
+  $("infiniteBtn").addEventListener("click", toggleInfinite);
+  $("debugBtn").addEventListener("click", debugCrash);
+  frequencyInput.addEventListener("input", () => { whale.frequency = Number(frequencyInput.value); whaleAI("frequency shift", .6); });
+  tiktokFeed.addEventListener("scroll", () => { if (Math.random() > .91) { whaleAI("brand feed scroll", .42); renderStats(); } });
+  setInterval(() => { if (!infiniteRunning) whaleAI("quiet observation", .22); }, 9000);
+
+  if (!posts.length) {
+    posts = [
+      { id: crypto.randomUUID(), author: "anonymous whale", text: "black hoodie prototype // whale signal garment", files: [], createdAt: Date.now() - 300000 },
+      { id: crypto.randomUUID(), author: "anonymous whale", text: "archive note: the fit should feel like deep water and green electricity.", files: [], createdAt: Date.now() - 200000 },
+      { id: crypto.randomUUID(), author: "anonymous whale", text: "a bit bizaaare — first closet fragment", files: [], createdAt: Date.now() - 100000 }
+    ];
+    savePosts();
+  }
+
+  renderFeed(); renderCloset(); renderEngine(); renderStats(); whaleAI("system initialized", .5);
+});
+</script>
+</body>
+</html>

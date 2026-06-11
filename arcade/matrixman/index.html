@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Code Storm Platformer</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<a href="../../" class="abz-home" style="position:fixed;top:14px;left:14px;z-index:2000000;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#00ff66;background:rgba(0,0,0,.75);border:1px solid rgba(0,255,102,.45);border-radius:999px;padding:7px 13px;text-decoration:none;backdrop-filter:blur(8px);box-shadow:0 0 18px rgba(0,255,102,.28)">&#8592; a bit bizaare</a>
+
+<canvas id="game"></canvas>
+
+<script>
+// =========================
+// CANVAS SETUP
+// =========================
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// =========================
+// MATRIX BACKGROUND
+// =========================
+const matrixLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>[]{};=+-*/";
+const fontSize = 16;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+function drawMatrixBackground() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#00FF00";
+  ctx.font = fontSize + "px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const char = matrixLetters.charAt(Math.floor(Math.random() * matrixLetters.length));
+    ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height) drops[i] = 0;
+    drops[i]++;
+  }
+}
+
+// =========================
+// PLAYER
+// =========================
+let player = {
+  x: canvas.width / 2,
+  y: canvas.height - 150,
+  w: 30,
+  h: 30,
+  vy: 0,
+  onGround: false
+};
+
+let keys = {};
+document.addEventListener("keydown", e => keys[e.key] = true);
+document.addEventListener("keyup", e => keys[e.key] = false);
+
+// =========================
+// RANDOM CODE CHUNKS
+// =========================
+const codeLines = [
+  "function hack(){",
+  "let x = 42;",
+  "console.log('run')",
+  "if(user){access();}",
+  "while(true){break;}",
+  "try{}catch(e){}",
+  "return null;",
+  "class Matrix{}",
+  "for(i=0;i<9;i++){}",
+  "const data = [];"
+];
+
+function generateChunk() {
+  let lines = [];
+  let height = 4 + Math.floor(Math.random() * 8);
+
+  for (let i = 0; i < height; i++) {
+    let indent = Math.floor(Math.random() * 12);
+    lines.push(" ".repeat(indent) + codeLines[Math.floor(Math.random() * codeLines.length)]);
+  }
+
+  return {
+    text: lines,
+    x: Math.random() * (canvas.width - 300),
+    y: -200 - Math.random() * 600,
+    speed: 1.5 + Math.random() * 2,
+    w: 300,
+    h: lines.length * 20
+  };
+}
+
+// Create many chunks
+let chunks = [];
+for (let i = 0; i < 15; i++) chunks.push(generateChunk());
+
+// =========================
+// UPDATE LOGIC
+// =========================
+function update() {
+  // Gravity
+  player.vy += 0.5;
+  player.y += player.vy;
+  player.onGround = false;
+
+  // Movement
+  if (keys["ArrowLeft"] || keys["a"]) player.x -= 5;
+  if (keys["ArrowRight"] || keys["d"]) player.x += 5;
+
+  // Jump
+  if ((keys["ArrowUp"] || keys["w"] || keys[" "]) && player.onGround) {
+    player.vy = -12;
+    player.onGround = false;
+  }
+
+  // Keep player on screen
+  if (player.x < 0) player.x = 0;
+  if (player.x + player.w > canvas.width) player.x = canvas.width - player.w;
+
+  // Respawn if falling
+  if (player.y > canvas.height) {
+    player.y = canvas.height - 150;
+    player.vy = 0;
+  }
+
+  // Update chunks
+  chunks.forEach(chunk => {
+    chunk.y += chunk.speed;
+
+    // Respawn chunk at top
+    if (chunk.y > canvas.height + 200) {
+      let newChunk = generateChunk();
+      chunk.text = newChunk.text;
+      chunk.x = newChunk.x;
+      chunk.y = newChunk.y;
+      chunk.speed = newChunk.speed;
+      chunk.h = newChunk.h;
+    }
+
+    // Collision detection
+    if (
+      player.x < chunk.x + chunk.w &&
+      player.x + player.w > chunk.x &&
+      player.y + player.h < chunk.y + chunk.h &&
+      player.y + player.h > chunk.y &&
+      player.vy > 0
+    ) {
+      player.onGround = true;
+      player.vy = 0;
+      player.y = chunk.y - player.h;
+    }
+  });
+}
+
+// =========================
+// DRAW EVERYTHING
+// =========================
+function draw() {
+  drawMatrixBackground();
+
+  // Draw chunks
+  ctx.fillStyle = "white";
+  ctx.font = "18px Courier New";
+
+  chunks.forEach(chunk => {
+    let yOffset = chunk.y;
+    chunk.text.forEach(line => {
+      ctx.fillText(line, chunk.x + 10, yOffset);
+      yOffset += 20;
+    });
+  });
+
+  // Draw player
+  ctx.fillStyle = "#00FF00";
+  ctx.fillRect(player.x, player.y, player.w, player.h);
+}
+
+// =========================
+// MAIN LOOP
+// =========================
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+
+</body>
+</html>
